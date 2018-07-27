@@ -26,6 +26,7 @@ namespace OpenZWaveApp
 			var manager = Manager.Initialize();
 
 			manager.AddDriver("HID Controller", Driver.ControllerInterface.Hid);
+			manager.GetLibraryVersion(0);
 
 
 			// Add a callback handler to the manager.  The second argument is a context that

@@ -99,5 +99,41 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
 		public extern static bool manager_remove_driver(manager_t m, [MarshalAs(UnmanagedType.LPStr)] string controllerPath);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte manager_get_controller_node_id(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte manager_get_static_update_controller_node_id(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_is_primary_controller(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_is_static_update_controller(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_is_bridge_controller(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static int manager_get_library_version(manager_t m, uint homeId, StringBuilder versionOut);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static int manager_get_library_type_name(manager_t m, uint homeId, StringBuilder versionOut);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static int manager_get_send_queue_count(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static void manager_log_driver_statistics(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static Driver.ControllerInterface manager_get_controller_interface_type(manager_t m, uint homeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static int manager_get_controller_path(manager_t m, uint homeId, StringBuilder pathOut);
 	}
 }

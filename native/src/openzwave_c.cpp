@@ -177,6 +177,59 @@ EXPORT bool manager_remove_driver(manager_t* m, char* controllerPath) {
     return reinterpret_cast<Manager*>(m)->RemoveDriver(controllerPath);
 }
 
+EXPORT unsigned char manager_get_controller_node_id(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->GetControllerNodeId(homeId);
+}
+
+EXPORT unsigned char manager_get_static_update_controller_node_id(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->GetSUCNodeId(homeId);
+}
+
+EXPORT bool manager_is_primary_controller(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->IsPrimaryController(homeId);
+}
+
+EXPORT bool manager_is_static_update_controller(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->IsStaticUpdateController(homeId);
+}
+
+EXPORT bool manager_is_bridge_controller(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->IsBridgeController(homeId);
+}
+
+EXPORT int manager_get_library_version(manager_t* m, uint homeId, char* versionOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetLibraryVersion(homeId);
+    if (versionOut)
+        strcpy(versionOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_library_type_name(manager_t* m, uint homeId, char* versionOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetLibraryTypeName(homeId);
+    if (versionOut)
+        strcpy(versionOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_send_queue_count(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->GetSendQueueCount(homeId);
+}
+
+EXPORT void manager_log_driver_statistics(manager_t* m, uint homeId) {
+    reinterpret_cast<Manager*>(m)->LogDriverStatistics(homeId);
+}
+
+EXPORT driver_controller_interface_t manager_get_controller_interface_type(manager_t* m, uint homeId) {
+    return (driver_controller_interface_t)reinterpret_cast<Manager*>(m)->GetControllerInterfaceType(homeId);
+}
+
+EXPORT int manager_get_controller_path(manager_t* m, uint homeId, char* pathOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetControllerPath(homeId);
+    if (pathOut)
+        strcpy(pathOut, str.c_str());
+    return (int)str.length();
+}
+
 #ifdef __cplusplus
 }
 #endif

@@ -150,5 +150,74 @@ namespace OpenZWave
 			return NativeMethods.manager_remove_driver(handle, controllerPath);
 		}
 
+		public byte GetControllerNodeId(uint homeId)
+		{
+			return NativeMethods.manager_get_controller_node_id(handle, homeId);
+		}
+
+		public byte GetStaticUpdateControllerNodeId(uint homeId)
+		{
+			return NativeMethods.manager_get_static_update_controller_node_id(handle, homeId);
+		}
+
+		public bool IsPrimaryController(uint homeId)
+		{
+			return NativeMethods.manager_is_primary_controller(handle, homeId);
+		}
+
+		public bool IsStaticUpdateController(uint homeId)
+		{
+			return NativeMethods.manager_is_primary_controller(handle, homeId);
+		}
+
+		public bool IsBridgeController(uint homeId)
+		{
+			return NativeMethods.manager_is_bridge_controller(handle, homeId);
+		}
+
+		public string GetLibraryVersion(uint homeId)
+		{
+			var len = NativeMethods.manager_get_library_version(handle, homeId, null);
+			var builder = new StringBuilder(len);
+			NativeMethods.manager_get_library_version(handle, homeId, builder);
+			return builder.ToString();
+		}
+
+		public string GetLibraryTypeName(uint homeId)
+		{
+			var len = NativeMethods.manager_get_library_type_name(handle, homeId, null);
+			var builder = new StringBuilder(len);
+			NativeMethods.manager_get_library_type_name(handle, homeId, builder);
+			return builder.ToString();
+		}
+
+		public int GetSendQueueCount(uint homeId)
+		{
+			return NativeMethods.manager_get_send_queue_count(handle, homeId);
+		}
+
+		public void LogDriverStatistics(uint homeId)
+		{
+			NativeMethods.manager_log_driver_statistics(handle, homeId);
+		}
+
+		public Driver.ControllerInterface GetControllerInterfaceType(uint homeId)
+		{
+			return NativeMethods.manager_get_controller_interface_type(handle, homeId);
+		}
+
+		public string GetControllerPath(uint homeId)
+		{
+			var len = NativeMethods.manager_get_controller_path(handle, homeId, null);
+			var builder = new StringBuilder(len);
+			NativeMethods.manager_get_controller_path(handle, homeId, builder);
+			return builder.ToString();
+		}
+
+
+		//-----------------------------------------------------------------------------
+		//	Polling Z-Wave devices
+		//-----------------------------------------------------------------------------	
+
 	}
 }
