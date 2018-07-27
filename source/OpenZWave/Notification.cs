@@ -105,6 +105,6 @@ namespace OpenZWave
 			Notification = notification;
 		}
 
-		private Notification Notification { get; }
+		public Notification Notification { get; }
 	}
 }
