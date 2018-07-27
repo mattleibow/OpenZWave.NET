@@ -16,7 +16,7 @@ To build, run:
 sh build-cppsharp.sh
 ```
 
-###
+### Using C Wrapper
 
 This one is working, because I wrote it the way I wanted it to, but there is only the `Options` type.
 
