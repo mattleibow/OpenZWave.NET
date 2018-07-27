@@ -4,6 +4,7 @@
 
 #include "Options.h"
 #include "Manager.h"
+#include "Notification.h"
 #include "Driver.h"
 #include "platform/Log.h"
 
@@ -40,32 +41,75 @@ typedef void (*on_ontification_delegate_t)(notification_t* notification, void* _
 // enums
 
 typedef enum {
-    OPTION_TYPE_INVALID = Options::OptionType::OptionType_Invalid,
-    OPTION_TYPE_BOOL = Options::OptionType::OptionType_Bool,
-    OPTION_TYPE_INT = Options::OptionType::OptionType_Int,
-    OPTION_TYPE_STRING = Options::OptionType::OptionType_String,
+    OPTION_TYPE_INVALID   = Options::OptionType::OptionType_Invalid,
+    OPTION_TYPE_BOOL      = Options::OptionType::OptionType_Bool,
+    OPTION_TYPE_INT       = Options::OptionType::OptionType_Int,
+    OPTION_TYPE_STRING    = Options::OptionType::OptionType_String,
 } option_type_t;
 
 typedef enum {
-    LOG_LEVEL_INVALID = LogLevel::LogLevel_Invalid,
-    LOG_LEVEL_NONE = LogLevel::LogLevel_None,
-    LOG_LEVEL_ALWAYS = LogLevel::LogLevel_Always,
-    LOG_LEVEL_FATAL = LogLevel::LogLevel_Fatal,
-    LOG_LEVEL_ERROR = LogLevel::LogLevel_Error,
-    LOG_LEVEL_WARNING = LogLevel::LogLevel_Warning,
-    LOG_LEVEL_ALERT = LogLevel::LogLevel_Alert,
-    LOG_LEVEL_INFO = LogLevel::LogLevel_Info,
-    LOG_LEVEL_DETAIL = LogLevel::LogLevel_Detail,
-    LOG_LEVEL_DEBUG = LogLevel::LogLevel_Debug,
-    LOG_LEVEL_STREAM_DETAIL = LogLevel::LogLevel_StreamDetail,
-    LOG_LEVEL_INTERNAL = LogLevel::LogLevel_Internal,
+    LOG_LEVEL_INVALID         = LogLevel::LogLevel_Invalid,
+    LOG_LEVEL_NONE            = LogLevel::LogLevel_None,
+    LOG_LEVEL_ALWAYS          = LogLevel::LogLevel_Always,
+    LOG_LEVEL_FATAL           = LogLevel::LogLevel_Fatal,
+    LOG_LEVEL_ERROR           = LogLevel::LogLevel_Error,
+    LOG_LEVEL_WARNING         = LogLevel::LogLevel_Warning,
+    LOG_LEVEL_ALERT           = LogLevel::LogLevel_Alert,
+    LOG_LEVEL_INFO            = LogLevel::LogLevel_Info,
+    LOG_LEVEL_DETAIL          = LogLevel::LogLevel_Detail,
+    LOG_LEVEL_DEBUG           = LogLevel::LogLevel_Debug,
+    LOG_LEVEL_STREAM_DETAIL   = LogLevel::LogLevel_StreamDetail,
+    LOG_LEVEL_INTERNAL        = LogLevel::LogLevel_Internal,
 } log_level_t;
 
 typedef enum {
-    DRIVER_CONTROLLER_INTERFACE_UNKNOWN = Driver::ControllerInterface::ControllerInterface_Unknown,
-    DRIVER_CONTROLLER_INTERFACE_SERIAL = Driver::ControllerInterface::ControllerInterface_Serial,
-    DRIVER_CONTROLLER_INTERFACE_HID = Driver::ControllerInterface::ControllerInterface_Hid,
+    DRIVER_CONTROLLER_INTERFACE_UNKNOWN   = Driver::ControllerInterface::ControllerInterface_Unknown,
+    DRIVER_CONTROLLER_INTERFACE_SERIAL    = Driver::ControllerInterface::ControllerInterface_Serial,
+    DRIVER_CONTROLLER_INTERFACE_HID       = Driver::ControllerInterface::ControllerInterface_Hid,
 } driver_controller_interface_t;
+
+typedef enum {
+    NOTIFICATION_TYPE_VALUE_ADDED                     = Notification::NotificationType::Type_ValueAdded,
+    NOTIFICATION_TYPE_VALUE_REMOVED                   = Notification::NotificationType::Type_ValueRemoved,
+    NOTIFICATION_TYPE_VALUE_CHANGED                   = Notification::NotificationType::Type_ValueChanged,
+    NOTIFICATION_TYPE_VALUE_REFRESHED                 = Notification::NotificationType::Type_ValueRefreshed,
+    NOTIFICATION_TYPE_GROUP                           = Notification::NotificationType::Type_Group,
+    NOTIFICATION_TYPE_NODE_NEW                        = Notification::NotificationType::Type_NodeNew,
+    NOTIFICATION_TYPE_NODE_ADDED                      = Notification::NotificationType::Type_NodeAdded,
+    NOTIFICATION_TYPE_NODE_REMOVED                    = Notification::NotificationType::Type_NodeRemoved,
+    NOTIFICATION_TYPE_NODE_PROTOCOLINFO               = Notification::NotificationType::Type_NodeProtocolInfo,
+    NOTIFICATION_TYPE_NODE_NAMING                     = Notification::NotificationType::Type_NodeNaming,
+    NOTIFICATION_TYPE_NODE_EVENT                      = Notification::NotificationType::Type_NodeEvent,
+    NOTIFICATION_TYPE_POLLING_DISABLED                = Notification::NotificationType::Type_PollingDisabled,
+    NOTIFICATION_TYPE_POLLING_ENABLED                 = Notification::NotificationType::Type_PollingEnabled,
+    NOTIFICATION_TYPE_SCENE_EVENT                     = Notification::NotificationType::Type_SceneEvent,
+    NOTIFICATION_TYPE_CREATE_BUTTON                   = Notification::NotificationType::Type_CreateButton,
+    NOTIFICATION_TYPE_DELETE_BUTTON                   = Notification::NotificationType::Type_DeleteButton,
+    NOTIFICATION_TYPE_BUTTON_ON                       = Notification::NotificationType::Type_ButtonOn,
+    NOTIFICATION_TYPE_BUTTON_OFF                      = Notification::NotificationType::Type_ButtonOff,
+    NOTIFICATION_TYPE_DRIVER_READY                    = Notification::NotificationType::Type_DriverReady,
+    NOTIFICATION_TYPE_DRIVER_FAILED                   = Notification::NotificationType::Type_DriverFailed,
+    NOTIFICATION_TYPE_DRIVER_RESET                    = Notification::NotificationType::Type_DriverReset,
+    NOTIFICATION_TYPE_ESSENTIAL_NODE_QUERIES_COMPLETE = Notification::NotificationType::Type_EssentialNodeQueriesComplete,
+    NOTIFICATION_TYPE_NODE_QUERIES_COMPLETE           = Notification::NotificationType::Type_NodeQueriesComplete,
+    NOTIFICATION_TYPE_AWAKE_NODES_QUERIED             = Notification::NotificationType::Type_AwakeNodesQueried,
+    NOTIFICATION_TYPE_ALL_NODES_QUERIED_SOME_DEAD     = Notification::NotificationType::Type_AllNodesQueriedSomeDead,
+    NOTIFICATION_TYPE_ALL_NODES_QUERIED               = Notification::NotificationType::Type_AllNodesQueried,
+    NOTIFICATION_TYPE_NOTIFICATION                    = Notification::NotificationType::Type_Notification,
+    NOTIFICATION_TYPE_DRIVER_REMOVED                  = Notification::NotificationType::Type_DriverRemoved,
+    NOTIFICATION_TYPE_CONTROLLER_COMMAND              = Notification::NotificationType::Type_ControllerCommand,
+    NOTIFICATION_TYPE_NODE_RESET                      = Notification::NotificationType::Type_NodeReset,
+} notification_type_t;
+
+typedef enum {
+    NOTIFICATION_CODE_MSG_COMPLETE  = Notification::NotificationCode::Code_MsgComplete,
+    NOTIFICATION_CODE_TIMEOUT       = Notification::NotificationCode::Code_Timeout,
+    NOTIFICATION_CODE_NO_OPERATION  = Notification::NotificationCode::Code_NoOperation,
+    NOTIFICATION_CODE_AWAKE         = Notification::NotificationCode::Code_Awake,
+    NOTIFICATION_CODE_SLEEP         = Notification::NotificationCode::Code_Sleep,
+    NOTIFICATION_CODE_DEAD          = Notification::NotificationCode::Code_Dead,
+    NOTIFICATION_CODE_ALIVE         = Notification::NotificationCode::Code_Alive,
+} notification_code_t;
 
 
 // Options
@@ -122,6 +166,54 @@ EXPORT option_type_t options_get_option_type(options_t* o, char* name) {
 
 EXPORT bool options_are_locked(options_t* o) {
     return reinterpret_cast<Options*>(o)->AreLocked();
+}
+
+
+// Notification
+
+EXPORT notification_type_t notification_get_type(notification_t* n) {
+    return (notification_type_t)reinterpret_cast<Notification*>(n)->GetType();
+}
+
+EXPORT uint notification_get_home_id(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetHomeId();
+}
+
+EXPORT unsigned char notification_get_node_id(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetNodeId();
+}
+
+// TODO: GetValueID
+
+EXPORT unsigned char notification_get_group_index(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetGroupIdx();
+}
+
+EXPORT unsigned char notification_get_event(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetEvent();
+}
+
+EXPORT unsigned char notification_get_button_id(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetButtonId();
+}
+
+EXPORT unsigned char notification_get_scene_id(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetSceneId();
+}
+
+EXPORT unsigned char notification_get_notification(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetNotification();
+}
+
+EXPORT unsigned char notification_get_byte(notification_t* n) {
+    return reinterpret_cast<Notification*>(n)->GetByte();
+}
+
+EXPORT int notification_get_as_string(notification_t* n, char* strOut) {
+    string str = reinterpret_cast<Notification*>(n)->GetAsString();
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
 }
 
 

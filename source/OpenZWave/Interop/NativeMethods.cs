@@ -61,6 +61,41 @@ namespace OpenZWave
 		public extern static bool options_are_locked(options_t o);
 
 
+		// Notification
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static Notification.NotificationType notification_get_type(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static uint notification_get_home_id(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_node_id(notification_t n);
+
+		// TODO: GetValueID
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_group_index(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_event(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_button_id(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_scene_id(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_notification(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte notification_get_byte(notification_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static int notification_get_as_string(notification_t n, StringBuilder strOut);
+
+
 		// Manager
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
