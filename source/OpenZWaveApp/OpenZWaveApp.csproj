@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net47</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\externals\open-zwave\libopenzwave-1.4.dylib" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\externals\open-zwave\libopenzwave_c.dylib" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\externals\open-zwave\config\**\*.*" Link="config\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenZWave\OpenZWave.csproj" />
+  </ItemGroup>
+</Project>

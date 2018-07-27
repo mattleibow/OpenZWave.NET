@@ -1,0 +1,25 @@
+diff --git a/cpp/src/OZWException.h b/cpp/src/OZWException.h
+index c6755c1..90287ff 100644
+--- a/cpp/src/OZWException.h
++++ b/cpp/src/OZWException.h
+@@ -33,7 +33,7 @@
+ #include <string>
+ #include <sstream>
+ 
+-
++#include "Defs.h"
+ 
+ namespace OpenZWave
+ {
+diff --git a/cpp/src/Scene.h b/cpp/src/Scene.h
+index 3af3e67..897d015 100644
+--- a/cpp/src/Scene.h
++++ b/cpp/src/Scene.h
+@@ -32,6 +32,7 @@
+ #include <vector>
+ 
+ #include "Defs.h"
++#include "value_classes/ValueID.h"
+ 
+ class TiXmlElement;
+ 

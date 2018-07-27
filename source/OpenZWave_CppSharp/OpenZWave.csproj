@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="*.cpp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="openzwave.cs" />
+  </ItemGroup>
+</Project>
