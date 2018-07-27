@@ -80,10 +80,10 @@ namespace OpenZWave
 
 		public bool GetOption(string name, out string value)
 		{
-			if (NativeMethods.options_get_option_as_string(handle, name, IntPtr.Zero, out var len))
+			if (NativeMethods.options_get_option_as_string(handle, name, null, out var len))
 			{
 				var builder = new StringBuilder((int)len);
-				NativeMethods.options_get_option_as_string(handle, name, builder, IntPtr.Zero);
+				NativeMethods.options_get_option_as_string(handle, name, builder, out len);
 				value = builder.ToString();
 				return true;
 			}
@@ -95,31 +95,6 @@ namespace OpenZWave
 		public OptionType GetOptionType(string name)
 		{
 			return NativeMethods.options_get_option_type(handle, name);
-		}
-	}
-
-	internal static class NativeManager
-	{
-		public static T GetOrCreate<T>(this ConcurrentDictionary<IntPtr, T> map, IntPtr ptr)
-			where T : class
-		{
-			if (ptr == IntPtr.Zero)
-				return null;
-
-			if (map.TryGetValue(ptr, out var value))
-				return value;
-
-			var obj = (T)Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { ptr }, null);
-			map[ptr] = obj;
-			return obj;
-		}
-
-		public static void Dispose<T>(this ConcurrentDictionary<IntPtr, T> map, ref IntPtr ptr)
-			where T : class
-		{
-			if (ptr != IntPtr.Zero)
-				map.TryRemove(ptr, out var dummy);
-			ptr = IntPtr.Zero;
 		}
 	}
 }

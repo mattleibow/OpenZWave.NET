@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -xe
 
 # build libopenzwave.dylib
 if [ ! -f externals/open-zwave/libopenzwave.dylib ]; then

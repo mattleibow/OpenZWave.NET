@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -xe
 
 # build libopenzwave-1.4.dylib
 make -C externals/open-zwave
