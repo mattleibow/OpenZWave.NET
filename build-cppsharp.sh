@@ -16,7 +16,7 @@ fi
 # build and run the generator
 (cd source && \
     msbuild /restore Generator/Generator.csproj
-    mono Generator/bin/Debug/net47/Generator.exe)
+    mono Generator/bin/Debug/net47/Generator.exe "../externals/open-zwave")
 
 # build the library
 (cd source && \

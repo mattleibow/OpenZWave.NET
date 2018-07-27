@@ -7,28 +7,32 @@ namespace Generator
 {
 	class OpenZWave : ILibrary
 	{
-		string root = "/Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/";
+		public string RootPath { get; set; }
 
 		public void Setup(Driver driver)
 		{
+			if (string.IsNullOrEmpty(RootPath))
+				RootPath = ".";
+			RootPath = Path.GetFullPath(RootPath);
+
 			var options = driver.Options;
 			//options.Verbose = true;
 			options.OutputDir = "OpenZWave_CppSharp";
 			//options.GenerateDefaultValuesForArguments = true;
 
 			var module = options.AddModule("openzwave-1.4");
-			module.IncludeDirs.Add(root + "cpp/src");
-			module.Headers.AddRange(Directory.GetFiles(root + "cpp/src", "*.h"));
+			module.IncludeDirs.Add(Path.Combine(RootPath, "cpp/src"));
+			module.Headers.AddRange(Directory.GetFiles(Path.Combine(RootPath, "cpp/src"), "*.h"));
 
-			//module.Headers.AddRange(Directory.GetFiles(root + "cpp/src/platform", "*.h"));
-			//module.Headers.AddRange(Directory.GetFiles(root + "cpp/src/value_classes", "*.h"));
+			//module.Headers.AddRange(Directory.GetFiles(Path.Combine(RootPath, "cpp/src/platform"), "*.h"));
+			//module.Headers.AddRange(Directory.GetFiles(Path.Combine(RootPath, "cpp/src/value_classes"), "*.h"));
 
 			module.OutputNamespace = "";
 
 			var parserOptions = driver.ParserOptions;
-			parserOptions.AddIncludeDirs(root + "cpp/hidapi");
-			parserOptions.AddIncludeDirs(root + "cpp/src");
-			parserOptions.AddIncludeDirs(root + "cpp/tinyxml");
+			parserOptions.AddIncludeDirs(Path.Combine(RootPath, "cpp/hidapi"));
+			parserOptions.AddIncludeDirs(Path.Combine(RootPath, "cpp/src"));
+			parserOptions.AddIncludeDirs(Path.Combine(RootPath, "cpp/tinyxml"));
 		}
 
 		public void SetupPasses(Driver driver)
@@ -49,13 +53,13 @@ namespace Generator
 				"ValueID.h",
 				"Log.h",
 			};
-			foreach (var header in Directory.GetFiles(root + "cpp/src/platform", "*.h"))
+			foreach (var header in Directory.GetFiles(Path.Combine(RootPath, "cpp/src/platform"), "*.h"))
 			{
 				if (exceptions.Contains(Path.GetFileName(header)))
 					continue;
 				ctx.IgnoreHeadersWithName(header);
 			}
-			foreach (var header in Directory.GetFiles(root + "cpp/src/value_classes", "*.h"))
+			foreach (var header in Directory.GetFiles(Path.Combine(RootPath, "cpp/src/value_classes"), "*.h"))
 			{
 				if (exceptions.Contains(Path.GetFileName(header)))
 					continue;
