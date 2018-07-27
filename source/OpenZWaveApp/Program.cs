@@ -29,7 +29,7 @@ namespace OpenZWaveApp
 			// is passed to the OnNotification method.  If the OnNotification is a method of
 			// a class, the context would usually be a pointer to that class object, to
 			// avoid the need for the notification handler to be a static.
-			Manager.Instance.AddWatcher(OnNotification, IntPtr.Zero);
+			Manager.Instance.NotificationReceived += OnNotification;
 
 			//// Add a Z-Wave Driver
 			//// Modify this line to set the correct serial port for your PC interface.
@@ -52,7 +52,7 @@ namespace OpenZWaveApp
 			//Manager.Instance.AddDriver(port);
 		}
 
-		static void OnNotification(IntPtr _pNotification, IntPtr _context)
+		static void OnNotification(object sender, NotificationReceivedEventArgs e)
 		{
 		}
 	}

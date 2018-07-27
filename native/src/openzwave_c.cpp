@@ -30,6 +30,9 @@ extern "C" {
 
 typedef struct options_t options_t;
 typedef struct manager_t manager_t;
+typedef struct notification_t notification_t;
+
+typedef void (*on_ontification_delegate_t)(notification_t* notification, void* _context);
 
 // enums
 
@@ -147,6 +150,14 @@ EXPORT void manager_write_config(manager_t* m, uint homeId) {
 
 EXPORT options_t* manager_get_options(manager_t* m) {
     return reinterpret_cast<options_t*>(reinterpret_cast<Manager*>(m)->GetOptions());
+}
+
+EXPORT bool manager_add_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
+    return reinterpret_cast<Manager*>(m)->AddWatcher((Manager::pfnOnNotification_t)watcher, context);
+}
+
+EXPORT bool manager_remove_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
+    return reinterpret_cast<Manager*>(m)->RemoveWatcher((Manager::pfnOnNotification_t)watcher, context);
 }
 
 #ifdef __cplusplus

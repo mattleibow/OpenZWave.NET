@@ -15,7 +15,7 @@ namespace OpenZWave
 
 	public class Options
 	{
-		internal static readonly ConcurrentDictionary<IntPtr, Options> NativeToManagedMap = new ConcurrentDictionary<IntPtr, Options>();
+		internal static readonly NativeMap<Options> NativeToManagedMap = new NativeMap<Options>();
 
 		private IntPtr handle;
 

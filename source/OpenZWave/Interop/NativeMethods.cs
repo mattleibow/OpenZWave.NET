@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
 using options_t = System.IntPtr;
 using manager_t = System.IntPtr;
+using notification_t = System.IntPtr;
 
 namespace OpenZWave
 {
-	public static class NativeMethods
+	internal static class NativeMethods
 	{
 		private const string LibraryName = "openzwave_c";
 
@@ -84,30 +83,13 @@ namespace OpenZWave
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static options_t manager_get_options(manager_t m);
-	}
 
-	internal static class NativeManager
-	{
-		public static T GetOrCreate<T>(this ConcurrentDictionary<IntPtr, T> map, IntPtr ptr)
-			where T : class
-		{
-			if (ptr == IntPtr.Zero)
-				return null;
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_add_watcher(manager_t m, IntPtr watcher, IntPtr context);
 
-			if (map.TryGetValue(ptr, out var value))
-				return value;
-
-			var obj = (T)Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { ptr }, null);
-			map[ptr] = obj;
-			return obj;
-		}
-
-		public static void Dispose<T>(this ConcurrentDictionary<IntPtr, T> map, ref IntPtr ptr)
-			where T : class
-		{
-			if (ptr != IntPtr.Zero)
-				map.TryRemove(ptr, out var dummy);
-			ptr = IntPtr.Zero;
-		}
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_remove_watcher(manager_t m, IntPtr watcher, IntPtr context);
 	}
 }
