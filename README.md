@@ -8,6 +8,8 @@ There are currently 2 ways to generate a binding:
 
 ### Using CppSharp
 
+**I don't think this is going to work properly**
+
 This one is quick to generate, but I need to investigate why the generation is not working properly.
 
 To build, run:
