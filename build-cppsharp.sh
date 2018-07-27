@@ -15,9 +15,9 @@ fi
 
 # build and run the generator
 (cd source && \
-    msbuild Generator/Generator.csproj
+    msbuild /restore Generator/Generator.csproj
     mono Generator/bin/Debug/net47/Generator.exe)
 
 # build the library
 (cd source && \
-    msbuild OpenZWave_CppSharp.sln)
+    msbuild  /restore OpenZWave_CppSharp.sln)

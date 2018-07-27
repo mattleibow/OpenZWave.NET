@@ -19,4 +19,4 @@ install_name_tool -id "libopenzwave_c.dylib" \
 
 # build the library
 (cd source && \
-    msbuild OpenZWave.sln)
+    msbuild /restore OpenZWave.sln)
