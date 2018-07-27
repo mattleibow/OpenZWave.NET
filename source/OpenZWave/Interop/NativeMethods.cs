@@ -54,7 +54,7 @@ namespace OpenZWave
 		public extern static bool options_get_option_as_string(options_t o, [MarshalAs(UnmanagedType.LPStr)] string name, StringBuilder valueOut, out uint lengthOut);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
-		public extern static OptionType options_get_option_type(options_t o, [MarshalAs(UnmanagedType.LPStr)] string name);
+		public extern static Options.OptionType options_get_option_type(options_t o, [MarshalAs(UnmanagedType.LPStr)] string name);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -91,5 +91,13 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
 		public extern static bool manager_remove_watcher(manager_t m, IntPtr watcher, IntPtr context);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_add_driver(manager_t m, [MarshalAs(UnmanagedType.LPStr)] string controllerPath, Driver.ControllerInterface controllerInterface);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_remove_driver(manager_t m, [MarshalAs(UnmanagedType.LPStr)] string controllerPath);
 	}
 }

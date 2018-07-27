@@ -129,5 +129,26 @@ namespace OpenZWave
 		{
 			NotificationReceived?.Invoke(this, new NotificationReceivedEventArgs(notification));
 		}
+
+
+		//-----------------------------------------------------------------------------
+		//	Drivers
+		//-----------------------------------------------------------------------------
+
+		public bool AddDriver(string controllerPath)
+		{
+			return NativeMethods.manager_add_driver(handle, controllerPath, Driver.ControllerInterface.Serial);
+		}
+
+		public bool AddDriver(string controllerPath, Driver.ControllerInterface controllerInterface)
+		{
+			return NativeMethods.manager_add_driver(handle, controllerPath, controllerInterface);
+		}
+
+		public bool RemoveDriver(string controllerPath)
+		{
+			return NativeMethods.manager_remove_driver(handle, controllerPath);
+		}
+
 	}
 }

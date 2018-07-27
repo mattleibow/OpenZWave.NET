@@ -5,16 +5,16 @@ using System.Text;
 
 namespace OpenZWave
 {
-	public enum OptionType
-	{
-		Invalid = 0,
-		Bool,
-		Int,
-		String
-	}
-
 	public class Options
 	{
+		public enum OptionType
+		{
+			Invalid = 0,
+			Bool,
+			Int,
+			String
+		}
+
 		internal static readonly NativeMap<Options> NativeToManagedMap = new NativeMap<Options>();
 
 		private IntPtr handle;

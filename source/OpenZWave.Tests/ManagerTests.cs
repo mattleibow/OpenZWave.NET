@@ -38,10 +38,37 @@ namespace OpenZWave.Tests
 			Options.Initialize("config/", "", "");
 			Options.Instance.Lock();
 
-			Manager.Initialize();
+			var manager = Manager.Initialize();
 
-			var instance = Manager.Instance;
-			Assert.NotNull(instance.Options);
+			Assert.NotNull(manager.Options);
+
+			Manager.Destroy();
+			Options.Destroy();
+		}
+
+		[Fact]
+		public void TestAddRemoveSerialDriver()
+		{
+			Options.Initialize("config/", "", "");
+			Options.Instance.Lock();
+
+			var manager = Manager.Initialize();
+
+			manager.AddDriver(Helpers.GetControllerPath());
+
+			Manager.Destroy();
+			Options.Destroy();
+		}
+
+		[Fact]
+		public void TestAddRemoveHidDriver()
+		{
+			Options.Initialize("config/", "", "");
+			Options.Instance.Lock();
+
+			var manager = Manager.Initialize();
+
+			manager.AddDriver("HID Controller", Driver.ControllerInterface.Hid);
 
 			Manager.Destroy();
 			Options.Destroy();

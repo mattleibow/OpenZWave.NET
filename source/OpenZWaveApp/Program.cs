@@ -23,13 +23,16 @@ namespace OpenZWaveApp
 			Options.Instance.AddOption("ValidateValueChanges", true);
 			Options.Instance.Lock();
 
-			Manager.Initialize();
+			var manager = Manager.Initialize();
+
+			manager.AddDriver("HID Controller", Driver.ControllerInterface.Hid);
+
 
 			// Add a callback handler to the manager.  The second argument is a context that
 			// is passed to the OnNotification method.  If the OnNotification is a method of
 			// a class, the context would usually be a pointer to that class object, to
 			// avoid the need for the notification handler to be a static.
-			Manager.Instance.NotificationReceived += OnNotification;
+			manager.NotificationReceived += OnNotification;
 
 			//// Add a Z-Wave Driver
 			//// Modify this line to set the correct serial port for your PC interface.

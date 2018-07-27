@@ -4,6 +4,7 @@
 
 #include "Options.h"
 #include "Manager.h"
+#include "Driver.h"
 #include "platform/Log.h"
 
 using namespace OpenZWave;
@@ -26,6 +27,7 @@ using namespace OpenZWave;
 extern "C" {
 #endif
 
+
 // types
 
 typedef struct options_t options_t;
@@ -33,6 +35,7 @@ typedef struct manager_t manager_t;
 typedef struct notification_t notification_t;
 
 typedef void (*on_ontification_delegate_t)(notification_t* notification, void* _context);
+
 
 // enums
 
@@ -42,6 +45,27 @@ typedef enum {
     OPTION_TYPE_INT = Options::OptionType::OptionType_Int,
     OPTION_TYPE_STRING = Options::OptionType::OptionType_String,
 } option_type_t;
+
+typedef enum {
+    LOG_LEVEL_INVALID = LogLevel::LogLevel_Invalid,
+    LOG_LEVEL_NONE = LogLevel::LogLevel_None,
+    LOG_LEVEL_ALWAYS = LogLevel::LogLevel_Always,
+    LOG_LEVEL_FATAL = LogLevel::LogLevel_Fatal,
+    LOG_LEVEL_ERROR = LogLevel::LogLevel_Error,
+    LOG_LEVEL_WARNING = LogLevel::LogLevel_Warning,
+    LOG_LEVEL_ALERT = LogLevel::LogLevel_Alert,
+    LOG_LEVEL_INFO = LogLevel::LogLevel_Info,
+    LOG_LEVEL_DETAIL = LogLevel::LogLevel_Detail,
+    LOG_LEVEL_DEBUG = LogLevel::LogLevel_Debug,
+    LOG_LEVEL_STREAM_DETAIL = LogLevel::LogLevel_StreamDetail,
+    LOG_LEVEL_INTERNAL = LogLevel::LogLevel_Internal,
+} log_level_t;
+
+typedef enum {
+    DRIVER_CONTROLLER_INTERFACE_UNKNOWN = Driver::ControllerInterface::ControllerInterface_Unknown,
+    DRIVER_CONTROLLER_INTERFACE_SERIAL = Driver::ControllerInterface::ControllerInterface_Serial,
+    DRIVER_CONTROLLER_INTERFACE_HID = Driver::ControllerInterface::ControllerInterface_Hid,
+} driver_controller_interface_t;
 
 
 // Options
@@ -103,21 +127,6 @@ EXPORT bool options_are_locked(options_t* o) {
 
 // Manager
 
-typedef enum {
-    LOG_LEVEL_INVALID = LogLevel::LogLevel_Invalid,
-    LOG_LEVEL_NONE = LogLevel::LogLevel_None,
-    LOG_LEVEL_ALWAYS = LogLevel::LogLevel_Always,
-    LOG_LEVEL_FATAL = LogLevel::LogLevel_Fatal,
-    LOG_LEVEL_ERROR = LogLevel::LogLevel_Error,
-    LOG_LEVEL_WARNING = LogLevel::LogLevel_Warning,
-    LOG_LEVEL_ALERT = LogLevel::LogLevel_Alert,
-    LOG_LEVEL_INFO = LogLevel::LogLevel_Info,
-    LOG_LEVEL_DETAIL = LogLevel::LogLevel_Detail,
-    LOG_LEVEL_DEBUG = LogLevel::LogLevel_Debug,
-    LOG_LEVEL_STREAM_DETAIL = LogLevel::LogLevel_StreamDetail,
-    LOG_LEVEL_INTERNAL = LogLevel::LogLevel_Internal
-} log_level_t;
-
 EXPORT manager_t* manager_create() {
     return reinterpret_cast<manager_t*>(Manager::Create());
 }
@@ -158,6 +167,14 @@ EXPORT bool manager_add_watcher(manager_t* m, on_ontification_delegate_t watcher
 
 EXPORT bool manager_remove_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
     return reinterpret_cast<Manager*>(m)->RemoveWatcher((Manager::pfnOnNotification_t)watcher, context);
+}
+
+EXPORT bool manager_add_driver(manager_t* m, char* controllerPath, driver_controller_interface_t controllerInterface) {
+    return reinterpret_cast<Manager*>(m)->AddDriver(controllerPath, (Driver::ControllerInterface)controllerInterface);
+}
+
+EXPORT bool manager_remove_driver(manager_t* m, char* controllerPath) {
+    return reinterpret_cast<Manager*>(m)->RemoveDriver(controllerPath);
 }
 
 #ifdef __cplusplus
