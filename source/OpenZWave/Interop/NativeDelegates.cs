@@ -34,10 +34,8 @@ namespace OpenZWave
 		[MonoPInvokeCallback(typeof(on_ontification_delegate_t))]
 		private static void OnNotificationInternal(notification_t notification, IntPtr context)
 		{
-			using (var ctx = NativeDelegateContext.Unwrap(context))
-			{
-				ctx.GetDelegate<OnNotificationDelegate>()(Notification.NativeToManagedMap.GetOrCreate(notification), ctx.ManagedContext);
-			}
+			var ctx = NativeDelegateContext.Unwrap(context);
+			ctx.GetDelegate<OnNotificationDelegate>()(Notification.NativeToManagedMap.GetOrCreate(notification), ctx.ManagedContext);
 		}
 	}
 }
