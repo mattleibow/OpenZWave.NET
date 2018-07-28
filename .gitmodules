@@ -1,6 +1,3 @@
 [submodule "externals/open-zwave"]
 	path = externals/open-zwave
 	url = https://github.com/OpenZWave/open-zwave.git
-[submodule "externals/CppSharp"]
-	path = externals/CppSharp
-	url = https://github.com/mono/CppSharp.git
