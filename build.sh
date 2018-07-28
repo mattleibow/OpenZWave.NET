@@ -10,7 +10,7 @@ install_name_tool -id "libopenzwave-1.4.dylib" \
 xcodebuild clean build \
     -project native/build/openzwave_c.xcodeproj \
     -target openzwave_c \
-    -arch x86_64 \
+    -arch i386 -arch x86_64 \
     -configuration Release
 cp native/build/build/Release/libopenzwave_c.dylib \
     externals/open-zwave/libopenzwave_c.dylib
