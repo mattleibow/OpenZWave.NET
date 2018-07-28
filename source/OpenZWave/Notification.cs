@@ -5,51 +5,6 @@ namespace OpenZWave
 {
 	public class Notification
 	{
-		public enum NotificationType
-		{
-			ValueAdded = 0,
-			ValueRemoved,
-			ValueChanged,
-			ValueRefreshed,
-			Group,
-			NodeNew,
-			NodeAdded,
-			NodeRemoved,
-			NodeProtocolInfo,
-			NodeNaming,
-			NodeEvent,
-			PollingDisabled,
-			PollingEnabled,
-			SceneEvent,
-			CreateButton,
-			DeleteButton,
-			ButtonOn,
-			ButtonOff,
-			DriverReady,
-			DriverFailed,
-			DriverReset,
-			EssentialNodeQueriesComplete,
-			NodeQueriesComplete,
-			AwakeNodesQueried,
-			AllNodesQueriedSomeDead,
-			AllNodesQueried,
-			Notification,
-			DriverRemoved,
-			ControllerCommand,
-			NodeReset
-		}
-
-		public enum NotificationCode
-		{
-			MsgComplete = 0,
-			Timeout,
-			NoOperation,
-			Awake,
-			Sleep,
-			Dead,
-			Alive
-		}
-
 		internal static readonly NativeMap<Notification> NativeToManagedMap = new NativeMap<Notification>();
 
 		private IntPtr handle;
@@ -69,13 +24,15 @@ namespace OpenZWave
 			NativeToManagedMap.Dispose(ref handle);
 		}
 
-		public Notification.NotificationType Type => NativeMethods.notification_get_type(handle);
+		public NotificationType Type => NativeMethods.notification_get_type(handle);
+
+		public NotificationCode Code => (NotificationCode)Byte;
 
 		public uint HomeId => NativeMethods.notification_get_home_id(handle);
 
 		public byte NodeId => NativeMethods.notification_get_node_id(handle);
 
-		// TODO: GetValueID
+		public ValueId ValueId => ValueId.NativeToManagedMap.GetOrCreate(NativeMethods.notification_get_value_id(handle));
 
 		public byte GroupIndex => NativeMethods.notification_get_group_index(handle);
 

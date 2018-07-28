@@ -5,6 +5,7 @@ using System.Text;
 using options_t = System.IntPtr;
 using manager_t = System.IntPtr;
 using notification_t = System.IntPtr;
+using value_id_t = System.IntPtr;
 
 namespace OpenZWave
 {
@@ -68,7 +69,7 @@ namespace OpenZWave
 		//==============================================================================
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
-		public extern static Notification.NotificationType notification_get_type(notification_t n);
+		public extern static NotificationType notification_get_type(notification_t n);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static uint notification_get_home_id(notification_t n);
@@ -76,7 +77,8 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static byte notification_get_node_id(notification_t n);
 
-		// TODO: GetValueID
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static value_id_t notification_get_value_id(notification_t n);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static byte notification_get_group_index(notification_t n);
@@ -99,6 +101,34 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static int notification_get_as_string(notification_t n, StringBuilder strOut);
 
+
+		//==============================================================================
+		// VALUEID
+		//==============================================================================
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static uint value_id_get_home_id(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte value_id_get_node_id(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static ValueGenre value_id_get_genre_type(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte value_id_get_command_class_id(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte value_id_get_instance(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static byte value_id_get_value_index(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static ZWValueType value_id_get_value_type(value_id_t n);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static ulong value_id_get_id(value_id_t n);
 
 
 		//==============================================================================
