@@ -1,17 +1,17 @@
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Bitfield.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Defs.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/DoxygenMain.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Driver.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Group.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Manager.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Msg.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Node.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Notification.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/OZWException.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Options.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Scene.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Utils.h>
-#include </Users/matthew/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/ZWSecurity.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Bitfield.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Defs.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/DoxygenMain.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Driver.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Group.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Manager.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Msg.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Node.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Notification.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/OZWException.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Options.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Scene.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/Utils.h>
+#include </Users/clancey/Projects/OpenZWave.NET/externals/open-zwave/cpp/src/ZWSecurity.h>
 
 ::uint32 (OpenZWave::Bitfield::Iterator::*openzwave_1_4_symbols1)() const = &OpenZWave::Bitfield::Iterator::operator*;
 OpenZWave::Bitfield::Iterator& (OpenZWave::Bitfield::Iterator::*openzwave_1_4_symbols2)() = &OpenZWave::Bitfield::Iterator::operator++;

@@ -5,6 +5,7 @@
 #include "Options.h"
 #include "Manager.h"
 #include "Notification.h"
+#include "value_classes/ValueID.h"
 #include "Driver.h"
 #include "platform/Log.h"
 
@@ -34,6 +35,7 @@ extern "C" {
 typedef struct options_t options_t;
 typedef struct manager_t manager_t;
 typedef struct notification_t notification_t;
+typedef struct value_id_t value_id_t;
 
 typedef void (*on_ontification_delegate_t)(notification_t* notification, void* _context);
 
@@ -110,6 +112,28 @@ typedef enum {
     NOTIFICATION_CODE_DEAD          = Notification::NotificationCode::Code_Dead,
     NOTIFICATION_CODE_ALIVE         = Notification::NotificationCode::Code_Alive,
 } notification_code_t;
+    
+    
+typedef enum {
+    VALUE_GENRE_BASIC           = ValueID::ValueGenre::ValueGenre_Basic,
+    VALUE_GENRE_USER         = ValueID::ValueGenre::ValueGenre_User,
+    VALUE_GENRE_CONFIG    = ValueID::ValueGenre::ValueGenre_Config,
+    VALUE_GENRE_SYSTEM           = ValueID::ValueGenre::ValueGenre_System,
+    VALUE_GENRE_COUNT         = ValueID::ValueGenre::ValueGenre_Count,
+} value_genre_t;
+    
+typedef enum {
+    VALUE_ID_VALUE_TYPE_BOOL       = ValueID::ValueType::ValueType_Bool,
+    VALUE_ID_VALUE_TYPE_BYTE       = ValueID::ValueType::ValueType_Byte,
+    VALUE_ID_VALUE_TYPE_DECIMAL    = ValueID::ValueType::ValueType_Decimal,
+    VALUE_ID_VALUE_TYPE_INT        = ValueID::ValueType::ValueType_Int,
+    VALUE_ID_VALUE_TYPE_LIST       = ValueID::ValueType::ValueType_List,
+    VALUE_ID_VALUE_TYPE_SCHEDULE   = ValueID::ValueType::ValueType_Schedule,
+    VALUE_ID_VALUE_TYPE_SHORT      = ValueID::ValueType::ValueType_Short,
+    VALUE_ID_VALUE_TYPE_STRING     = ValueID::ValueType::ValueType_String,
+    VALUE_ID_VALUE_TYPE_BUTTON     = ValueID::ValueType::ValueType_Button,
+    VALUE_ID_VALUE_TYPE_RAW        = ValueID::ValueType::ValueType_Raw,
+} value_id_value_type_t;
 
 
 // Options
@@ -174,6 +198,10 @@ EXPORT bool options_are_locked(options_t* o) {
 EXPORT notification_type_t notification_get_type(notification_t* n) {
     return (notification_type_t)reinterpret_cast<Notification*>(n)->GetType();
 }
+    
+//EXPORT notification_code_t notification_get_code(notification_t* n) {
+//    return (notification_code_t)reinterpret_cast<Notification*>(n)->GetCode();
+//}
 
 EXPORT uint notification_get_home_id(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetHomeId();
@@ -216,6 +244,40 @@ EXPORT int notification_get_as_string(notification_t* n, char* strOut) {
     return (int)str.length();
 }
 
+// ValueId
+    
+EXPORT uint value_id_get_home_id(value_id_t* n) {
+    return reinterpret_cast<ValueID*>(n)->GetHomeId();
+}
+
+EXPORT unsigned char value_id_get_node_id(value_id_t* n) {
+    return reinterpret_cast<ValueID*>(n)->GetNodeId();
+}
+
+EXPORT value_genre_t value_id_get_genre_type(value_id_t* n) {
+    return (value_genre_t)reinterpret_cast<ValueID*>(n)->GetGenre();
+}
+
+EXPORT unsigned char value_id_get_command_class_id(value_id_t* n) {
+    return reinterpret_cast<ValueID*>(n)->GetCommandClassId();
+}
+
+EXPORT unsigned char value_id_get_instance(value_id_t* n) {
+    return reinterpret_cast<ValueID*>(n)->GetInstance();
+}
+
+EXPORT unsigned char value_id_get_value_index(value_id_t* n) {
+    return reinterpret_cast<ValueID*>(n)->GetIndex();
+}
+
+EXPORT value_id_value_type_t value_id_get_value_type(value_id_t* n) {
+    return (value_id_value_type_t)reinterpret_cast<ValueID*>(n)->GetType();
+}
+    
+EXPORT uint64 value_id_get_id(value_id_t* n) {
+    return reinterpret_cast<ValueID*>(n)->GetId();
+}
+    
 
 // Manager
 
