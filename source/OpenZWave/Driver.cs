@@ -16,7 +16,7 @@ namespace OpenZWave
 			Hid
 		}
 
-		internal static readonly NativeMap<Manager> NativeToManagedMap = new NativeMap<Manager>();
+		internal static readonly NativeMap<Driver> NativeToManagedMap = new NativeMap<Driver>();
 
 		private IntPtr handle;
 

@@ -13,7 +13,9 @@ namespace OpenZWave
 		private const string LibraryName = "openzwave_c";
 
 
-		// Options
+		//==============================================================================
+		// OPTIONS
+		//==============================================================================
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static options_t options_create([MarshalAs(UnmanagedType.LPStr)] string configPath, [MarshalAs(UnmanagedType.LPStr)] string userPath, [MarshalAs(UnmanagedType.LPStr)] string commandLine);
@@ -51,7 +53,7 @@ namespace OpenZWave
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
-		public extern static bool options_get_option_as_string(options_t o, [MarshalAs(UnmanagedType.LPStr)] string name, StringBuilder valueOut, out uint lengthOut);
+		public extern static bool options_get_option_as_string(options_t o, [MarshalAs(UnmanagedType.LPStr)] string name, StringBuilder valueOut, out int lengthOut);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static Options.OptionType options_get_option_type(options_t o, [MarshalAs(UnmanagedType.LPStr)] string name);
@@ -61,7 +63,9 @@ namespace OpenZWave
 		public extern static bool options_are_locked(options_t o);
 
 
-		// Notification
+		//==============================================================================
+		// NOTIFICATION
+		//==============================================================================
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static Notification.NotificationType notification_get_type(notification_t n);
@@ -96,7 +100,13 @@ namespace OpenZWave
 		public extern static int notification_get_as_string(notification_t n, StringBuilder strOut);
 
 
-		// Manager
+
+		//==============================================================================
+		// MANAGER
+		//==============================================================================
+
+		//-----------------------------------------------------------------------------
+		// Construction
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static manager_t manager_create();
@@ -113,19 +123,17 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static int manager_get_version_long_as_string(StringBuilder versionOut);
 
+		//-----------------------------------------------------------------------------
+		// Configuration
+
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static void manager_write_config(manager_t m, uint homeId);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static options_t manager_get_options(manager_t m);
 
-		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
-		[return: MarshalAs(UnmanagedType.I1)]
-		public extern static bool manager_add_watcher(manager_t m, IntPtr watcher, IntPtr context);
-
-		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
-		[return: MarshalAs(UnmanagedType.I1)]
-		public extern static bool manager_remove_watcher(manager_t m, IntPtr watcher, IntPtr context);
+		//-----------------------------------------------------------------------------
+		//	Drivers
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -170,5 +178,49 @@ namespace OpenZWave
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static int manager_get_controller_path(manager_t m, uint homeId, StringBuilder pathOut);
+
+		//-----------------------------------------------------------------------------
+		//	Polling Z-Wave devices
+
+		//-----------------------------------------------------------------------------
+		//	Node information
+
+		//-----------------------------------------------------------------------------
+		// Values
+
+		//-----------------------------------------------------------------------------
+		// Climate Control Schedules
+
+		//-----------------------------------------------------------------------------
+		// SwitchAll
+
+		//-----------------------------------------------------------------------------
+		// Configuration Parameters
+
+		//-----------------------------------------------------------------------------
+		// Groups (wrappers for the Node methods)
+
+		//-----------------------------------------------------------------------------
+		//	Notifications
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_add_watcher(manager_t m, IntPtr watcher, IntPtr context);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.I1)]
+		public extern static bool manager_remove_watcher(manager_t m, IntPtr watcher, IntPtr context);
+
+		//-----------------------------------------------------------------------------
+		// Controller commands
+
+		//-----------------------------------------------------------------------------
+		// Network commands
+
+		//-----------------------------------------------------------------------------
+		// Scene commands
+
+		//-----------------------------------------------------------------------------
+		// Statistics interface
 	}
 }

@@ -82,7 +82,7 @@ namespace OpenZWave
 		{
 			if (NativeMethods.options_get_option_as_string(handle, name, null, out var len))
 			{
-				var builder = new StringBuilder((int)len);
+				var builder = new StringBuilder(len);
 				NativeMethods.options_get_option_as_string(handle, name, builder, out len);
 				value = builder.ToString();
 				return true;

@@ -29,7 +29,9 @@ extern "C" {
 #endif
 
 
-// types
+//==============================================================================
+// TYPES
+//=============================================================================
 
 typedef struct options_t options_t;
 typedef struct manager_t manager_t;
@@ -38,7 +40,9 @@ typedef struct notification_t notification_t;
 typedef void (*on_ontification_delegate_t)(notification_t* notification, void* _context);
 
 
-// enums
+//==============================================================================
+// ENUMS
+//==============================================================================
 
 typedef enum {
     OPTION_TYPE_INVALID   = Options::OptionType::OptionType_Invalid,
@@ -112,7 +116,9 @@ typedef enum {
 } notification_code_t;
 
 
-// Options
+//==============================================================================
+// OPTIONS
+//==============================================================================
 
 EXPORT options_t* options_create(char* configPath, char* userPath, char* commandLine) {
     return reinterpret_cast<options_t*>(Options::Create(configPath, userPath, commandLine));
@@ -169,7 +175,9 @@ EXPORT bool options_are_locked(options_t* o) {
 }
 
 
-// Notification
+//==============================================================================
+// NOTIFICATION
+//==============================================================================
 
 EXPORT notification_type_t notification_get_type(notification_t* n) {
     return (notification_type_t)reinterpret_cast<Notification*>(n)->GetType();
@@ -217,7 +225,12 @@ EXPORT int notification_get_as_string(notification_t* n, char* strOut) {
 }
 
 
-// Manager
+//==============================================================================
+// MANAGER
+//==============================================================================
+
+//-----------------------------------------------------------------------------
+// Construction
 
 EXPORT manager_t* manager_create() {
     return reinterpret_cast<manager_t*>(Manager::Create());
@@ -245,6 +258,9 @@ EXPORT int manager_get_version_long_as_string(char* versionOut) {
     return (int)str.length();
 }
 
+//-----------------------------------------------------------------------------
+// Configuration
+
 EXPORT void manager_write_config(manager_t* m, uint homeId) {
     reinterpret_cast<Manager*>(m)->WriteConfig(homeId);
 }
@@ -253,13 +269,8 @@ EXPORT options_t* manager_get_options(manager_t* m) {
     return reinterpret_cast<options_t*>(reinterpret_cast<Manager*>(m)->GetOptions());
 }
 
-EXPORT bool manager_add_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
-    return reinterpret_cast<Manager*>(m)->AddWatcher((Manager::pfnOnNotification_t)watcher, context);
-}
-
-EXPORT bool manager_remove_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
-    return reinterpret_cast<Manager*>(m)->RemoveWatcher((Manager::pfnOnNotification_t)watcher, context);
-}
+//-----------------------------------------------------------------------------
+//	Drivers
 
 EXPORT bool manager_add_driver(manager_t* m, char* controllerPath, driver_controller_interface_t controllerInterface) {
     return reinterpret_cast<Manager*>(m)->AddDriver(controllerPath, (Driver::ControllerInterface)controllerInterface);
@@ -321,6 +332,50 @@ EXPORT int manager_get_controller_path(manager_t* m, uint homeId, char* pathOut)
         strcpy(pathOut, str.c_str());
     return (int)str.length();
 }
+
+//-----------------------------------------------------------------------------
+//	Polling Z-Wave devices
+
+//-----------------------------------------------------------------------------
+//	Node information
+
+//-----------------------------------------------------------------------------
+// Values
+
+//-----------------------------------------------------------------------------
+// Climate Control Schedules
+
+//-----------------------------------------------------------------------------
+// SwitchAll
+
+//-----------------------------------------------------------------------------
+// Configuration Parameters
+
+//-----------------------------------------------------------------------------
+// Groups (wrappers for the Node methods)
+
+//-----------------------------------------------------------------------------
+//	Notifications
+
+EXPORT bool manager_add_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
+    return reinterpret_cast<Manager*>(m)->AddWatcher((Manager::pfnOnNotification_t)watcher, context);
+}
+
+EXPORT bool manager_remove_watcher(manager_t* m, on_ontification_delegate_t watcher, void* context) {
+    return reinterpret_cast<Manager*>(m)->RemoveWatcher((Manager::pfnOnNotification_t)watcher, context);
+}
+
+//-----------------------------------------------------------------------------
+// Controller commands
+
+//-----------------------------------------------------------------------------
+// Network commands
+
+//-----------------------------------------------------------------------------
+// Scene commands
+
+//-----------------------------------------------------------------------------
+// Statistics interface
 
 #ifdef __cplusplus
 }
