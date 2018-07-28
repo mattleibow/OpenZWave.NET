@@ -46,6 +46,32 @@ namespace OpenZWave.Tests
 			Options.Destroy();
 		}
 
+		[Theory]
+		[InlineData((object)null)]
+		[InlineData(1)]
+		[InlineData("text")]
+		[InlineData(1.4)]
+		public void TestAddRemoveWatcher(object ctx)
+		{
+			Options.Initialize("config/", "", "");
+			Options.Instance.Lock();
+
+			var manager = Manager.Initialize();
+
+			Assert.True(manager.AddWatcher(watcher, ctx));
+			Assert.False(manager.AddWatcher(watcher, ctx));
+
+			Assert.True(manager.RemoveWatcher(watcher, ctx));
+			Assert.False(manager.RemoveWatcher(watcher, ctx));
+
+			Manager.Destroy();
+			Options.Destroy();
+
+			void watcher(Notification notification, object context)
+			{
+			}
+		}
+
 		[Fact]
 		public void TestAddRemoveSerialDriver()
 		{

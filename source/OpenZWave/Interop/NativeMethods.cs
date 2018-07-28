@@ -15,6 +15,14 @@ namespace OpenZWave
 
 
 		//==============================================================================
+		// DELEGATES
+		//==============================================================================
+
+		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+		public delegate void on_ontification_delegate_t(notification_t notification, IntPtr context);
+
+
+		//==============================================================================
 		// OPTIONS
 		//==============================================================================
 
@@ -235,11 +243,11 @@ namespace OpenZWave
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
-		public extern static bool manager_add_watcher(manager_t m, IntPtr watcher, IntPtr context);
+		public extern static bool manager_add_watcher(manager_t m, on_ontification_delegate_t watcher, IntPtr context);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
-		public extern static bool manager_remove_watcher(manager_t m, IntPtr watcher, IntPtr context);
+		public extern static bool manager_remove_watcher(manager_t m, on_ontification_delegate_t watcher, IntPtr context);
 
 		//-----------------------------------------------------------------------------
 		// Controller commands

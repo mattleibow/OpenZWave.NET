@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using WatchersMap = System.Collections.Generic.Dictionary<(OpenZWave.OnNotificationDelegate, object), OpenZWave.NativeDelegateContext>;
+using WatchersMap = System.Collections.Concurrent.ConcurrentDictionary<(OpenZWave.OnNotificationDelegate, object), OpenZWave.NativeMethods.on_ontification_delegate_t>;
 
 namespace OpenZWave
 {
@@ -105,22 +105,31 @@ namespace OpenZWave
 		//	Notifications
 		//-----------------------------------------------------------------------------
 
-		// Keep these private for now as we are using the event.
-		private bool AddWatcher(OnNotificationDelegate watcher, object context)
+		public bool AddWatcher(OnNotificationDelegate watcher, object context = null)
 		{
-			var ctx = new NativeDelegateContext(context, watcher);
-			watchers.Add((watcher, context), ctx);
-
-			return NativeMethods.manager_add_watcher(handle, NativeDelegates.GetPointer<OnNotificationDelegate>(), ctx.NativeContext);
-		}
-
-		// Keep these private for now as we are using the event.
-		private bool RemoveWatcher(OnNotificationDelegate watcher, object context)
-		{
-			if (!watchers.TryGetValue((watcher, context), out var ctx))
+			if (watchers.TryGetValue((watcher, context), out var del))
 				return false;
 
-			return NativeMethods.manager_remove_watcher(handle, NativeDelegates.GetPointer<OnNotificationDelegate>(), ctx.NativeContext);
+			del = new NativeMethods.on_ontification_delegate_t((notificationPtr, ctx) =>
+			{
+				var notification = Notification.NativeToManagedMap.GetOrCreate(notificationPtr);
+				watcher?.Invoke(notification, context);
+			});
+
+			var added = NativeMethods.manager_add_watcher(handle, del, IntPtr.Zero);
+
+			if (added)
+				watchers.AddOrUpdate((watcher, context), del, (k, v) => del);
+
+			return added;
+		}
+
+		public bool RemoveWatcher(OnNotificationDelegate watcher, object context = null)
+		{
+			if (!watchers.TryRemove((watcher, context), out var del))
+				return false;
+
+			return NativeMethods.manager_remove_watcher(handle, del, IntPtr.Zero);
 		}
 
 		public event EventHandler<NotificationReceivedEventArgs> NotificationReceived;
