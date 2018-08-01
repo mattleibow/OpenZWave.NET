@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{55F6C944-CDE9-49AA-B654-97E860A90070}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>openzwave_c</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <OpenZWaveCppPath>..\..\..\externals\open-zwave\cpp</OpenZWaveCppPath>
+    <UpdateVersionCommand>
+del  "$(OpenZWaveCppPath)\build\windows\winversion.cpp"
+CALL "$(OpenZWaveCppPath)\build\windows\GIT-VS-VERSION-GEN.bat" "$(OpenZWaveCppPath)\build\windows\" "$(OpenZWaveCppPath)\build\windows\winversion.cpp"
+exit 0
+    </UpdateVersionCommand>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN32;_LIB;USE_HID=1;OPENZWAVE_MAKEDLL;OPENZWAVE_C_DLL;OPENZWAVE_C_IMPLEMENTATION;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(OpenZWaveCppPath)\src;$(OpenZWaveCppPath)\tinyxml;$(OpenZWaveCppPath)\hidapi\hidapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(UpdateVersionCommand)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;WIN32;_LIB;USE_HID=1;OPENZWAVE_MAKEDLL;OPENZWAVE_C_DLL;OPENZWAVE_C_IMPLEMENTATION;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(OpenZWaveCppPath)\src;$(OpenZWaveCppPath)\tinyxml;$(OpenZWaveCppPath)\hidapi\hidapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(UpdateVersionCommand)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN32;_LIB;USE_HID=1;OPENZWAVE_MAKEDLL;OPENZWAVE_C_DLL;OPENZWAVE_C_IMPLEMENTATION;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(OpenZWaveCppPath)\src;$(OpenZWaveCppPath)\tinyxml;$(OpenZWaveCppPath)\hidapi\hidapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(UpdateVersionCommand)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;WIN32;_LIB;USE_HID=1;OPENZWAVE_MAKEDLL;OPENZWAVE_C_DLL;OPENZWAVE_C_IMPLEMENTATION;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(OpenZWaveCppPath)\src;$(OpenZWaveCppPath)\tinyxml;$(OpenZWaveCppPath)\hidapi\hidapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(UpdateVersionCommand)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\openzwave_c.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\hidapi\hidapi\hidapi.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\aes\aes.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\aes\aesopt.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\aes\aestab.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\aes\brg_endian.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\aes\brg_types.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Bitfield.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\DeviceResetLocally.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\DoorLock.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\DoorLockLogging.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\NoOperation.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SceneActivation.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Security.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CentralScene.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\TimeParameters.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SensorAlarm.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\UserCode.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ZWavePlusInfo.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Defs.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Driver.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Group.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Manager.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Msg.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Node.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Notification.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Options.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\ZWSecurity.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Controller.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Event.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\HidController.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Log.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Mutex.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Ref.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Stream.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\SerialController.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Thread.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\TimeStamp.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\Wait.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\EventImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\LogImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\MutexImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\SerialControllerImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\ThreadImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\TimeStampImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\WaitImpl.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Scene.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\Utils.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueButton.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueRaw.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueSchedule.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\tinyxml\tinystr.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\Value.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueBool.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueByte.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueDecimal.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueID.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueInt.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueList.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueShort.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueStore.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueString.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Alarm.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ApplicationStatus.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Association.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\AssociationCommandConfiguration.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Basic.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\BasicWindowCovering.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Battery.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ClimateControlSchedule.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Clock.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Color.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CommandClass.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CommandClasses.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Configuration.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ControllerReplication.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CRC16Encap.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\EnergyProduction.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Hail.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Indicator.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Language.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Lock.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ManufacturerSpecific.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Meter.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MeterPulse.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MultiCmd.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MultiInstance.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MultiChannelAssociation.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\NodeNaming.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Powerlevel.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Proprietary.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Protection.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SensorBinary.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SensorMultilevel.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchAll.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchBinary.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchMultilevel.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchToggleBinary.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchToggleMultilevel.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatFanMode.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatFanState.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatMode.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatOperatingState.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatSetpoint.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Version.h" />
+    <ClInclude Include="..\..\..\externals\open-zwave\cpp\src\command_classes\WakeUp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\hidapi\windows\hid.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\aes\aescrypt.c" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\aes\aeskey.c" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\aes\aestab.c" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\aes\aes_modes.c" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\DeviceResetLocally.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\DoorLock.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\DoorLockLogging.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\NoOperation.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SceneActivation.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Security.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CentralScene.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\TimeParameters.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SensorAlarm.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\UserCode.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ZWavePlusInfo.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Driver.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Group.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Manager.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Msg.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Node.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Notification.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Options.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\ZWSecurity.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Controller.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Event.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\FileOps.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\HidController.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Log.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Mutex.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Stream.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\SerialController.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Thread.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\TimeStamp.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\Wait.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\EventImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\FileOpsImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\LogImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\MutexImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\SerialControllerImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\ThreadImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\TimeStampImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\platform\windows\WaitImpl.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Scene.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\Utils.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueButton.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueRaw.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueSchedule.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\Value.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueBool.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueByte.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueDecimal.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueInt.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueList.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueShort.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueStore.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\value_classes\ValueString.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Alarm.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ApplicationStatus.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Association.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\AssociationCommandConfiguration.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Basic.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\BasicWindowCovering.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Battery.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ClimateControlSchedule.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Clock.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Color.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CommandClass.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CommandClasses.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Configuration.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ControllerReplication.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\CRC16Encap.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\EnergyProduction.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Hail.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Indicator.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Language.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Lock.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ManufacturerSpecific.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Meter.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MeterPulse.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MultiCmd.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MultiInstance.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\MultiChannelAssociation.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\NodeNaming.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Powerlevel.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Proprietary.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Protection.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SensorBinary.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SensorMultilevel.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchAll.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchBinary.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchMultilevel.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchToggleBinary.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\SwitchToggleMultilevel.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatFanMode.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatFanState.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatMode.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatOperatingState.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\ThermostatSetpoint.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\Version.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\src\command_classes\WakeUp.cpp" />
+    <ClCompile Include="..\..\..\externals\open-zwave\cpp\build\windows\winversion.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

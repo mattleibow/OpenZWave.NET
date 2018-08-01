@@ -163,7 +163,7 @@ EXPORT bool options_add_option_bool(options_t* o, char* name, bool value) {
     return reinterpret_cast<Options*>(o)->AddOptionBool(name, value);
 }
 
-EXPORT bool options_add_option_int(options_t* o, char* name, int value) {
+EXPORT bool options_add_option_int(options_t* o, char* name, int32_t value) {
     return reinterpret_cast<Options*>(o)->AddOptionInt(name, value);
 }
 
@@ -175,17 +175,17 @@ EXPORT bool options_get_option_as_bool(options_t* o, char* name, bool* valueOut)
     return reinterpret_cast<Options*>(o)->GetOptionAsBool(name, valueOut);
 }
 
-EXPORT bool options_get_option_as_int(options_t* o, char* name, int* valueOut) {
+EXPORT bool options_get_option_as_int(options_t* o, char* name, int32_t* valueOut) {
     return reinterpret_cast<Options*>(o)->GetOptionAsInt(name, valueOut);
 }
 
-EXPORT bool options_get_option_as_string(options_t* o, char* name, char* valueOut, int* len) {
+EXPORT bool options_get_option_as_string(options_t* o, char* name, char* valueOut, int32_t* len) {
     string str;
     auto result = reinterpret_cast<Options*>(o)->GetOptionAsString(name, &str);
     if (valueOut)
         strcpy(valueOut, str.c_str());
     if (len)
-        *len = (int)str.length();
+        *len = (int32_t)str.length();
     return result;
 }
 
@@ -206,11 +206,11 @@ EXPORT notification_type_t notification_get_type(notification_t* n) {
     return (notification_type_t)reinterpret_cast<Notification*>(n)->GetType();
 }
 
-EXPORT uint notification_get_home_id(notification_t* n) {
+EXPORT uint32_t notification_get_home_id(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetHomeId();
 }
 
-EXPORT unsigned char notification_get_node_id(notification_t* n) {
+EXPORT uint8_t notification_get_node_id(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetNodeId();
 }
 
@@ -219,35 +219,35 @@ EXPORT const value_id_t* notification_get_value_id(notification_t* n) {
     return reinterpret_cast<const value_id_t*>(&vid);
 }
 
-EXPORT unsigned char notification_get_group_index(notification_t* n) {
+EXPORT uint8_t notification_get_group_index(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetGroupIdx();
 }
 
-EXPORT unsigned char notification_get_event(notification_t* n) {
+EXPORT uint8_t notification_get_event(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetEvent();
 }
 
-EXPORT unsigned char notification_get_button_id(notification_t* n) {
+EXPORT uint8_t notification_get_button_id(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetButtonId();
 }
 
-EXPORT unsigned char notification_get_scene_id(notification_t* n) {
+EXPORT uint8_t notification_get_scene_id(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetSceneId();
 }
 
-EXPORT unsigned char notification_get_notification(notification_t* n) {
+EXPORT uint8_t notification_get_notification(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetNotification();
 }
 
-EXPORT unsigned char notification_get_byte(notification_t* n) {
+EXPORT uint8_t notification_get_byte(notification_t* n) {
     return reinterpret_cast<Notification*>(n)->GetByte();
 }
 
-EXPORT int notification_get_as_string(notification_t* n, char* strOut) {
+EXPORT int32_t notification_get_as_string(notification_t* n, char* strOut) {
     string str = reinterpret_cast<Notification*>(n)->GetAsString();
     if (strOut)
         strcpy(strOut, str.c_str());
-    return (int)str.length();
+    return (int32_t)str.length();
 }
 
 
@@ -255,11 +255,11 @@ EXPORT int notification_get_as_string(notification_t* n, char* strOut) {
 // VALUEID
 //==============================================================================
 
-EXPORT uint value_id_get_home_id(value_id_t* n) {
+EXPORT uint32_t value_id_get_home_id(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetHomeId();
 }
 
-EXPORT unsigned char value_id_get_node_id(value_id_t* n) {
+EXPORT uint8_t value_id_get_node_id(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetNodeId();
 }
 
@@ -267,15 +267,15 @@ EXPORT value_genre_t value_id_get_genre_type(value_id_t* n) {
     return (value_genre_t)reinterpret_cast<ValueID*>(n)->GetGenre();
 }
 
-EXPORT unsigned char value_id_get_command_class_id(value_id_t* n) {
+EXPORT uint8_t value_id_get_command_class_id(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetCommandClassId();
 }
 
-EXPORT unsigned char value_id_get_instance(value_id_t* n) {
+EXPORT uint8_t value_id_get_instance(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetInstance();
 }
 
-EXPORT unsigned char value_id_get_value_index(value_id_t* n) {
+EXPORT uint8_t value_id_get_value_index(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetIndex();
 }
 
@@ -307,24 +307,24 @@ EXPORT void manager_destroy() {
     Manager::Destroy();
 }
 
-EXPORT int manager_get_version_as_string(char* versionOut) {
+EXPORT int32_t manager_get_version_as_string(char* versionOut) {
     string str = Manager::getVersionAsString();
     if (versionOut)
         strcpy(versionOut, str.c_str());
-    return (int)str.length();
+    return (int32_t)str.length();
 }
 
-EXPORT int manager_get_version_long_as_string(char* versionOut) {
+EXPORT int32_t manager_get_version_long_as_string(char* versionOut) {
     string str = Manager::getVersionLongAsString();
     if (versionOut)
         strcpy(versionOut, str.c_str());
-    return (int)str.length();
+    return (int32_t)str.length();
 }
 
 //-----------------------------------------------------------------------------
 // Configuration
 
-EXPORT void manager_write_config(manager_t* m, uint homeId) {
+EXPORT void manager_write_config(manager_t* m, uint32_t homeId) {
     reinterpret_cast<Manager*>(m)->WriteConfig(homeId);
 }
 
@@ -343,57 +343,57 @@ EXPORT bool manager_remove_driver(manager_t* m, char* controllerPath) {
     return reinterpret_cast<Manager*>(m)->RemoveDriver(controllerPath);
 }
 
-EXPORT unsigned char manager_get_controller_node_id(manager_t* m, uint homeId) {
+EXPORT uint8_t manager_get_controller_node_id(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->GetControllerNodeId(homeId);
 }
 
-EXPORT unsigned char manager_get_static_update_controller_node_id(manager_t* m, uint homeId) {
+EXPORT uint8_t manager_get_static_update_controller_node_id(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->GetSUCNodeId(homeId);
 }
 
-EXPORT bool manager_is_primary_controller(manager_t* m, uint homeId) {
+EXPORT bool manager_is_primary_controller(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->IsPrimaryController(homeId);
 }
 
-EXPORT bool manager_is_static_update_controller(manager_t* m, uint homeId) {
+EXPORT bool manager_is_static_update_controller(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->IsStaticUpdateController(homeId);
 }
 
-EXPORT bool manager_is_bridge_controller(manager_t* m, uint homeId) {
+EXPORT bool manager_is_bridge_controller(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->IsBridgeController(homeId);
 }
 
-EXPORT int manager_get_library_version(manager_t* m, uint homeId, char* versionOut) {
+EXPORT int32_t manager_get_library_version(manager_t* m, uint32_t homeId, char* versionOut) {
     string str = reinterpret_cast<Manager*>(m)->GetLibraryVersion(homeId);
     if (versionOut)
         strcpy(versionOut, str.c_str());
-    return (int)str.length();
+    return (int32_t)str.length();
 }
 
-EXPORT int manager_get_library_type_name(manager_t* m, uint homeId, char* versionOut) {
+EXPORT int32_t manager_get_library_type_name(manager_t* m, uint32_t homeId, char* versionOut) {
     string str = reinterpret_cast<Manager*>(m)->GetLibraryTypeName(homeId);
     if (versionOut)
         strcpy(versionOut, str.c_str());
-    return (int)str.length();
+    return (int32_t)str.length();
 }
 
-EXPORT int manager_get_send_queue_count(manager_t* m, uint homeId) {
+EXPORT int32_t manager_get_send_queue_count(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->GetSendQueueCount(homeId);
 }
 
-EXPORT void manager_log_driver_statistics(manager_t* m, uint homeId) {
+EXPORT void manager_log_driver_statistics(manager_t* m, uint32_t homeId) {
     reinterpret_cast<Manager*>(m)->LogDriverStatistics(homeId);
 }
 
-EXPORT driver_controller_interface_t manager_get_controller_interface_type(manager_t* m, uint homeId) {
+EXPORT driver_controller_interface_t manager_get_controller_interface_type(manager_t* m, uint32_t homeId) {
     return (driver_controller_interface_t)reinterpret_cast<Manager*>(m)->GetControllerInterfaceType(homeId);
 }
 
-EXPORT int manager_get_controller_path(manager_t* m, uint homeId, char* pathOut) {
+EXPORT int32_t manager_get_controller_path(manager_t* m, uint32_t homeId, char* pathOut) {
     string str = reinterpret_cast<Manager*>(m)->GetControllerPath(homeId);
     if (pathOut)
         strcpy(pathOut, str.c_str());
-    return (int)str.length();
+    return (int32_t)str.length();
 }
 
 //-----------------------------------------------------------------------------
