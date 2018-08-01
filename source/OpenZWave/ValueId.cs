@@ -18,15 +18,24 @@ namespace OpenZWave
 			handle = ptr;
 		}
 
+		~ValueId()
+		{
+			Dispose(false);
+		}
+
 		public void Dispose()
 		{
-			if (ownsHandle)
-				NativeMethods.value_id_delete(handle);
 			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 
 		public virtual void Dispose(bool disposing)
 		{
+			if (ownsHandle)
+			{
+				NativeMethods.value_id_delete(handle);
+				ownsHandle = false;
+			}
 			NativeToManagedMap.Dispose(ref handle);
 		}
 
