@@ -34,67 +34,36 @@ namespace OpenZWave
 			NativeToManagedMap.Dispose(ref handle);
 		}
 
+
 		public static Options Instance => NativeToManagedMap.GetOrCreate(NativeMethods.options_get());
 
-		public static Options Initialize(string configPath, string userPath, string commandLine)
-		{
-			return NativeToManagedMap.GetOrCreate(NativeMethods.options_create(configPath, userPath, commandLine));
-		}
+		public static Options Initialize(string configPath, string userPath, string commandLine) =>
+			NativeToManagedMap.GetOrCreate(NativeMethods.options_create(configPath, userPath, commandLine));
 
-		public static bool Destroy()
-		{
-			return NativeMethods.options_destroy();
-		}
+		public static bool Destroy() => NativeMethods.options_destroy();
 
 		public bool AreLocked => NativeMethods.options_are_locked(handle);
 
-		public bool Lock()
-		{
-			return NativeMethods.options_lock(handle);
-		}
+		public bool Lock() => NativeMethods.options_lock(handle);
 
-		public bool AddOption(string name, bool value)
-		{
-			return NativeMethods.options_add_option_bool(handle, name, value);
-		}
+		public bool AddOption(string name, bool value) => NativeMethods.options_add_option_bool(handle, name, value);
 
-		public bool AddOption(string name, int value)
-		{
-			return NativeMethods.options_add_option_int(handle, name, value);
-		}
+		public bool AddOption(string name, int value) => NativeMethods.options_add_option_int(handle, name, value);
 
-		public bool AddOption(string name, string value, bool append)
-		{
-			return NativeMethods.options_add_option_string(handle, name, value, append);
-		}
+		public bool AddOption(string name, string value, bool append) => NativeMethods.options_add_option_string(handle, name, value, append);
 
-		public bool GetOption(string name, out bool value)
-		{
-			return NativeMethods.options_get_option_as_bool(handle, name, out value);
-		}
+		public bool GetOption(string name, out bool value) => NativeMethods.options_get_option_as_bool(handle, name, out value);
 
-		public bool GetOption(string name, out int value)
-		{
-			return NativeMethods.options_get_option_as_int(handle, name, out value);
-		}
+		public bool GetOption(string name, out int value) => NativeMethods.options_get_option_as_int(handle, name, out value);
 
 		public bool GetOption(string name, out string value)
 		{
-			if (NativeMethods.options_get_option_as_string(handle, name, null, out var len))
-			{
-				var builder = new StringBuilder(len);
-				NativeMethods.options_get_option_as_string(handle, name, builder, out len);
-				value = builder.ToString();
-				return true;
-			}
-
-			value = null;
-			return false;
+			var builder = new StringBuilder();
+			var result = NativeMethods.options_get_option_as_string(handle, name, builder, out var len);
+			value = builder.ToString(0, len);
+			return result;
 		}
 
-		public OptionType GetOptionType(string name)
-		{
-			return NativeMethods.options_get_option_type(handle, name);
-		}
+		public OptionType GetOptionType(string name) => NativeMethods.options_get_option_type(handle, name);
 	}
 }

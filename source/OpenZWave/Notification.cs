@@ -24,6 +24,7 @@ namespace OpenZWave
 			NativeToManagedMap.Dispose(ref handle);
 		}
 
+
 		public NotificationType Type => NativeMethods.notification_get_type(handle);
 
 		public NotificationCode Code => (NotificationCode)Byte;
@@ -48,10 +49,9 @@ namespace OpenZWave
 
 		public override string ToString()
 		{
-			var len = NativeMethods.notification_get_as_string(handle, null);
-			var builder = new StringBuilder(len);
-			NativeMethods.notification_get_as_string(handle, builder);
-			return builder.ToString();
+			var builder = new StringBuilder();
+			var len = NativeMethods.notification_get_as_string(handle, builder);
+			return builder.ToString(0, len);
 		}
 	}
 

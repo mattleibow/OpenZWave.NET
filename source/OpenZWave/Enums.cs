@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenZWave
+﻿namespace OpenZWave
 {
 	public enum ZWValueType
 	{

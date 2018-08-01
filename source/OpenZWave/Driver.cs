@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-
-namespace OpenZWave
+﻿namespace OpenZWave
 {
 	public class Driver
 	{
@@ -16,23 +9,8 @@ namespace OpenZWave
 			Hid
 		}
 
-		internal static readonly NativeMap<Driver> NativeToManagedMap = new NativeMap<Driver>();
-
-		private IntPtr handle;
-
-		internal Driver(IntPtr ptr)
+		private Driver()
 		{
-			handle = ptr;
-		}
-
-		public void Dispose()
-		{
-			Dispose(true);
-		}
-
-		public virtual void Dispose(bool disposing)
-		{
-			NativeToManagedMap.Dispose(ref handle);
 		}
 	}
 }

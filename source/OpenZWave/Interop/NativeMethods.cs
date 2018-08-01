@@ -115,7 +115,7 @@ namespace OpenZWave
 		//==============================================================================
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
-		public extern static value_id_t value_id_create(uint homeId,byte nodeId, ValueGenre genre, byte commandClass, byte instance, byte index, ZWValueType type);
+		public extern static value_id_t value_id_create(uint homeId, byte nodeId, ValueGenre genre, byte commandClass, byte instance, byte index, ZWValueType type);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static value_id_t value_id_delete(value_id_t handle);
@@ -226,7 +226,6 @@ namespace OpenZWave
 		//-----------------------------------------------------------------------------
 		//	Polling Z-Wave devices
 
-
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static int manager_get_poll_interval(manager_t m);
 
@@ -250,8 +249,6 @@ namespace OpenZWave
 
 		//-----------------------------------------------------------------------------
 		//	Node information
-
-
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -311,6 +308,9 @@ namespace OpenZWave
 		public extern static int manager_get_node_type(manager_t m, uint homeId, byte nodeId, StringBuilder sbOut);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static void manager_get_node_neighbors(manager_t m, uint homeId, byte nodeId, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] out byte[] neighbors, out uint num);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static int manager_get_node_manufacturer_name(manager_t m, uint homeId, byte nodeId, StringBuilder sbOut);
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
@@ -340,11 +340,17 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static void manager_set_node_location(manager_t m, uint homeId, byte nodeId, [MarshalAs(UnmanagedType.LPStr)] string name);
 
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static void manager_set_node_on(manager_t m, uint homeId, byte nodeId);
 
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static void manager_set_node_off(manager_t m, uint homeId, byte nodeId);
+
+		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+		public extern static void manager_set_node_level(manager_t m, uint homeId, byte nodeId, byte level);
 
 		//-----------------------------------------------------------------------------
 		// Values
-
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static int manager_get_node_value_label(manager_t m, value_id_t v, StringBuilder sbOut);
@@ -413,8 +419,6 @@ namespace OpenZWave
 		[return: MarshalAs(UnmanagedType.I1)]
 		public extern static bool manager_get_node_value_list_selection(options_t o, value_id_t v, StringBuilder valueOut, out int lengthOut);
 
-
-
 		//-----------------------------------------------------------------------------
 		// Climate Control Schedules
 
@@ -424,13 +428,12 @@ namespace OpenZWave
 		//-----------------------------------------------------------------------------
 		// Configuration Parameters
 
-
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static void manager_request_config_params(manager_t m, uint homeId, byte nodeId, byte param);
 
-
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static void manager_request_all_config_params(manager_t m, uint homeId, byte nodeId);
+
 		//-----------------------------------------------------------------------------
 		// Groups (wrappers for the Node methods)
 
@@ -448,7 +451,6 @@ namespace OpenZWave
 		//-----------------------------------------------------------------------------
 		// Controller commands
 
-
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		public extern static void manager_reset_controller(manager_t m, uint homeId);
 
@@ -457,7 +459,6 @@ namespace OpenZWave
 
 		//-----------------------------------------------------------------------------
 		// Network commands
-
 
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -486,6 +487,7 @@ namespace OpenZWave
 		[DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.I1)]
 		public extern static bool manager_transfer_primary_role(manager_t m, uint homeId);
+
 		//-----------------------------------------------------------------------------
 		// Scene commands
 

@@ -30,6 +30,8 @@ del  "$(OpenZWaveCppPath)\build\windows\winversion.cpp"
 CALL "$(OpenZWaveCppPath)\build\windows\GIT-VS-VERSION-GEN.bat" "$(OpenZWaveCppPath)\build\windows\" "$(OpenZWaveCppPath)\build\windows\winversion.cpp"
 exit 0
     </UpdateVersionCommand>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

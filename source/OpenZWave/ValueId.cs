@@ -7,8 +7,10 @@ namespace OpenZWave
 		internal static readonly NativeMap<ValueId> NativeToManagedMap = new NativeMap<ValueId>();
 
 		internal IntPtr handle;
-		bool ownsHandle;
-		public ValueId(uint homeId, byte nodeId, ValueGenre genre, byte commandClass, byte instance, byte index, ZWValueType type) : this(NativeMethods.value_id_create(homeId, nodeId, genre, commandClass, instance, index, type))
+		private bool ownsHandle;
+
+		public ValueId(uint homeId, byte nodeId, ValueGenre genre, byte commandClass, byte instance, byte index, ZWValueType type)
+			: this(NativeMethods.value_id_create(homeId, nodeId, genre, commandClass, instance, index, type))
 		{
 			ownsHandle = true;
 		}
@@ -29,6 +31,7 @@ namespace OpenZWave
 		{
 			NativeToManagedMap.Dispose(ref handle);
 		}
+
 
 		public uint HomeId => NativeMethods.value_id_get_home_id(handle);
 

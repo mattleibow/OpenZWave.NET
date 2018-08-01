@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,12 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\externals\open-zwave\libopenzwave-1.4.dylib" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\..\externals\open-zwave\libopenzwave_c.dylib" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\..\externals\open-zwave\config\**\*.*" Link="config\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <ProjectReference Include="..\OpenZWave\OpenZWave.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenZWave\OpenZWave.csproj" />
+
+    <!-- mac native files -->
+    <Content Include="..\..\externals\open-zwave\libopenzwave-1.4.dylib" Condition="Exists('..\..\externals\open-zwave\libopenzwave-1.4.dylib') or '$(OS)' != 'Windows_NT'" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\externals\open-zwave\libopenzwave_c.dylib" Condition="Exists('..\..\externals\open-zwave\libopenzwave_c.dylib') or '$(OS)' != 'Windows_NT'" CopyToOutputDirectory="PreserveNewest" />
+
+    <!-- windows native files -->
+    <!--<Content Include="..\..\native\build\win32\Release\Win32\openzwave_c.dll" Condition="Exists('..\..\native\build\win32\Release\Win32\openzwave_c.dll') or '$(OS)' == 'Windows_NT'" CopyToOutputDirectory="PreserveNewest" />-->
+    <Content Include="..\..\native\build\win32\Release\x64\openzwave_c.dll" Condition="Exists('..\..\native\build\win32\Release\x64\openzwave_c.dll') or '$(OS)' == 'Windows_NT'" CopyToOutputDirectory="PreserveNewest" />
+
+    <!-- config files -->
+    <Content Include="..\..\externals\open-zwave\config\**\*.*" Link="config\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+
   </ItemGroup>
+
 </Project>

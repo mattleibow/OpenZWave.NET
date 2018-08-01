@@ -255,6 +255,15 @@ EXPORT int32_t notification_get_as_string(notification_t* n, char* strOut) {
 // VALUEID
 //==============================================================================
 
+EXPORT value_id_t* value_id_create(uint32_t const _homeId, uint8_t const _nodeId, value_genre_t const _genre, uint8_t const _commandClassId, uint8_t const _instance, uint8_t const _valueIndex, value_id_value_type_t const _type) {
+    ValueID* vid = new ValueID(_homeId, _nodeId, (ValueID::ValueGenre)_genre, _commandClassId, _instance, _valueIndex, (ValueID::ValueType)_type);
+    return reinterpret_cast<value_id_t*>(vid);
+}
+
+EXPORT void value_id_delete(value_id_t* v) {
+    delete reinterpret_cast<ValueID*>(v);
+}
+
 EXPORT uint32_t value_id_get_home_id(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetHomeId();
 }
@@ -283,7 +292,7 @@ EXPORT value_id_value_type_t value_id_get_value_type(value_id_t* n) {
     return (value_id_value_type_t)reinterpret_cast<ValueID*>(n)->GetType();
 }
 
-EXPORT uint64 value_id_get_id(value_id_t* n) {
+EXPORT uint64_t value_id_get_id(value_id_t* n) {
     return reinterpret_cast<ValueID*>(n)->GetId();
 }
 
@@ -502,6 +511,10 @@ EXPORT int manager_get_node_type(manager_t* m, uint32_t homeId, uint8_t nodeId, 
     return (int)str.length();
 }
 
+EXPORT void manager_get_node_neighbors(manager_t* m, uint32_t homeId, uint8_t nodeId, uint8_t** neighbors, uint32_t* num) {
+    *num = reinterpret_cast<Manager*>(m)->GetNodeNeighbors(homeId, nodeId, neighbors);
+}
+
 EXPORT int manager_get_node_manufacturer_name(manager_t* m, uint32_t homeId, uint8_t nodeId, char* strOut) {
     string str = reinterpret_cast<Manager*>(m)->GetNodeManufacturerName(homeId, nodeId);
     if (strOut)
@@ -563,16 +576,33 @@ EXPORT void manager_set_node_location(manager_t* m, uint32_t homeId, uint8_t nod
     reinterpret_cast<Manager*>(m)->SetNodeLocation(homeId, nodeId, name);
 }
 
+EXPORT void manager_set_node_on(manager_t* m, uint32_t homeId, uint8_t nodeId) {
+    reinterpret_cast<Manager*>(m)->SetNodeOn(homeId, nodeId);
+}
+
+EXPORT void manager_set_node_off(manager_t* m, uint32_t homeId, uint8_t nodeId) {
+    reinterpret_cast<Manager*>(m)->SetNodeOff(homeId, nodeId);
+}
+
+EXPORT void manager_set_node_level(manager_t* m, uint32_t homeId, uint8_t nodeId, uint8_t level) {
+    reinterpret_cast<Manager*>(m)->SetNodeLevel(homeId, nodeId, level);
+}
+
+// TODO: IsNodeInfoReceived
+// TODO: GetNodeClassInformation
+// TODO: IsNodeAwake
+// TODO: IsNodeFailed
+// TODO: GetNodeQueryStage
+// TODO: GetNodeDeviceType
+// TODO: GetNodeDeviceTypeString
+// TODO: GetNodeRole
+// TODO: GetNodeRoleString
+// TODO: GetNodePlusType
+// TODO: GetNodePlusTypeString
+
 //-----------------------------------------------------------------------------
 // Values
 
-EXPORT value_id_t* value_id_create(uint32 const _homeId, uint8_t const _nodeId, value_genre_t const _genre, uint8_t const _commandClassId, uint8_t const _instance, uint8_t const _valueIndex, value_id_value_type_t const _type) {
-    ValueID* vid = new ValueID(_homeId, _nodeId, (ValueID::ValueGenre)_genre, _commandClassId, _instance, _valueIndex, (ValueID::ValueType)_type);
-    return reinterpret_cast<value_id_t*>(vid);
-}
-EXPORT void value_id_delete(value_id_t* v) {
-    delete reinterpret_cast<ValueID*>(v);
-}
 EXPORT int manager_get_node_value_label(manager_t* m, value_id_t* valueId, char* strOut) {
     const ValueID* vid = reinterpret_cast<ValueID*>(valueId);
     string str = reinterpret_cast<Manager*>(m)->GetValueLabel(*vid);
@@ -672,19 +702,46 @@ EXPORT bool manager_get_node_value_string(manager_t* m, value_id_t* valueId, str
     return reinterpret_cast<Manager*>(m)->GetValueAsString(*vid, strOut);
 }
 
+// TODO: GetValueAsRaw
+
 EXPORT bool manager_get_node_value_list_selection(manager_t* m, value_id_t* valueId, string* strOut) {
     const ValueID* vid = reinterpret_cast<ValueID*>(valueId);
     return reinterpret_cast<Manager*>(m)->GetValueListSelection(*vid, strOut);
 }
 
+// TODO: bool GetValueListSelection( ValueID const& _id, int32* o_value );
+// TODO: GetValueListItems
+// TODO: GetValueListValues
+// TODO: GetValueFloatPrecision
+// TODO: SetValue (bool, uint8, float, int32, int16, uint8*, string)
+// TODO: SetValueListSelection
+// TODO: RefreshValue
+// TODO: SetChangeVerified
+// TODO: GetChangeVerified
+// TODO: PressButton
+// TODO: ReleaseButton
+
 //-----------------------------------------------------------------------------
 // Climate Control Schedules
+
+// TODO: GetNumSwitchPoints
+// TODO: SetSwitchPoint
+// TODO: RemoveSwitchPoint
+// TODO: ClearSwitchPoints
+// TODO: GetSwitchPoint
 
 //-----------------------------------------------------------------------------
 // SwitchAll
 
+// TODO: SwitchAllOn
+// TODO: SwitchAllOff
+
 //-----------------------------------------------------------------------------
 // Configuration Parameters
+
+EXPORT bool manager_set_config_params(manager_t* m, uint32_t homeId, uint8_t nodeId, uint8_t param, int32_t value, uint8_t size = 2) {
+    return reinterpret_cast<Manager*>(m)->SetConfigParam(homeId, nodeId, param, value, size);
+}
 
 EXPORT void manager_request_config_params(manager_t* m, uint32_t homeId, uint8_t nodeId, uint8_t param) {
     reinterpret_cast<Manager*>(m)->RequestConfigParam(homeId, nodeId, param);
@@ -696,6 +753,13 @@ EXPORT void manager_request_all_config_params(manager_t* m, uint32_t homeId, uin
 
 //-----------------------------------------------------------------------------
 // Groups (wrappers for the Node methods)
+
+// TODO: GetNumGroups
+// TODO: GetAssociations x2
+// TODO: GetMaxAssociations
+// TODO: GetGroupLabel
+// TODO: AddAssociation
+// TODO: RemoveAssociation
 
 //-----------------------------------------------------------------------------
 // Notifications
@@ -719,8 +783,16 @@ EXPORT void manager_soft_reset(manager_t* m, uint32_t homeId) {
     reinterpret_cast<Manager*>(m)->SoftReset(homeId);
 }
 
+// TODO: BeginControllerCommand (DEPRECATED)
+// TODO: RemoveAssociation
+
 //-----------------------------------------------------------------------------
 // Network commands
+
+// TODO: TestNetworkNode
+// TODO: TestNetwork
+// TODO: HealNetworkNode
+// TODO: HealNetwork
 
 EXPORT bool manager_add_node(manager_t* m, uint32_t homeId, bool doSecurity) {
     return reinterpret_cast<Manager*>(m)->AddNode(homeId, doSecurity);
@@ -738,6 +810,11 @@ EXPORT bool manager_has_node_failed(manager_t* m, uint32_t homeId, uint8_t nodeI
     return reinterpret_cast<Manager*>(m)->HasNodeFailed(homeId, nodeId);
 }
 
+// TODO: RequestNodeNeighborUpdate
+// TODO: AssignReturnRoute
+// TODO: DeleteAllReturnRoutes
+// TODO: SendNodeInformation
+
 EXPORT bool manager_create_new_primary(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->CreateNewPrimary(homeId);
 }
@@ -746,15 +823,42 @@ EXPORT bool manager_revieve_configuration(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->ReceiveConfiguration(homeId);
 }
 
+// TODO: TransferPrimaryRole
+
 EXPORT bool manager_transfer_primary_role(manager_t* m, uint32_t homeId) {
     return reinterpret_cast<Manager*>(m)->TransferPrimaryRole(homeId);
 }
 
+// TODO: ReplicationSend
+// TODO: CreateButton
+// TODO: DeleteButton
+
 //-----------------------------------------------------------------------------
 // Scene commands
 
+// TODO: GetNumScenes
+// TODO: GetAllScenes
+// TODO: RemoveAllScenes
+// TODO: CreateScene
+// TODO: RemoveScene
+// TODO: AddSceneValue x6
+// TODO: AddSceneValueListSelection x2
+// TODO: RemoveSceneValue
+// TODO: SceneGetValues
+// TODO: SceneGetValueAs[Bool|Byte|Float|Int|Short|String]
+// TODO: SceneGetValueListSelection x2
+// TODO: SetSceneValue x6
+// TODO: SetSceneValueListSelection x2
+// TODO: GetSceneLabel
+// TODO: SetSceneLabel
+// TODO: SceneExists
+// TODO: ActivateScene
+
 //-----------------------------------------------------------------------------
 // Statistics interface
+
+// TODO: GetDriverStatistics
+// TODO: GetNodeStatistics
 
 #ifdef __cplusplus
 }
