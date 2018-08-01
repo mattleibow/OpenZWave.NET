@@ -399,12 +399,295 @@ EXPORT int32_t manager_get_controller_path(manager_t* m, uint32_t homeId, char* 
 //-----------------------------------------------------------------------------
 //	Polling Z-Wave devices
 
+EXPORT uint manager_get_poll_interval(manager_t* m) {
+    return reinterpret_cast<Manager*>(m)->GetPollInterval();
+}
+
+EXPORT void manager_set_poll_interval(manager_t* m, int milliseconds, bool intervalBetweenPolls) {
+    reinterpret_cast<Manager*>(m)->SetPollInterval(milliseconds,intervalBetweenPolls);
+}
+
+EXPORT bool manager_enable_poll(manager_t* m,value_id_t* valueId, uint8  intensity) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->EnablePoll(vid,intensity);
+}
+
+EXPORT bool manager_disable_poll(manager_t* m,value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->DisablePoll(vid);
+}
+
+EXPORT bool manager_is_polled(manager_t* m,value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->isPolled(vid);
+}
+
+EXPORT void manager_set_poll_intensity(manager_t* m,value_id_t* valueId, uint8  intensity) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    reinterpret_cast<Manager*>(m)->SetPollIntensity(vid,intensity);
+}
+
+EXPORT unsigned char manager_get_poll_intensity(manager_t* m,value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetPollIntensity(vid);
+}
+    
+    
 //-----------------------------------------------------------------------------
 //	Node information
 
+EXPORT bool manager_refresh_node_info(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->RefreshNodeInfo(homeId,nodeId);
+}
+
+EXPORT bool manager_request_node_state(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->RequestNodeState(homeId,nodeId);
+}
+    
+EXPORT bool manager_is_node_listening_device(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->IsNodeListeningDevice(homeId,nodeId);
+}
+
+EXPORT bool manager_request_node_dynamic(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->RequestNodeDynamic(homeId,nodeId);
+}
+
+EXPORT bool manager_is_node_frequent_listening_device(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->IsNodeFrequentListeningDevice(homeId,nodeId);
+}
+
+EXPORT bool manager_is_node_beaming_device(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->IsNodeBeamingDevice(homeId,nodeId);
+}
+
+EXPORT bool manager_is_node_routing_device(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->IsNodeRoutingDevice(homeId,nodeId);
+}
+
+EXPORT bool manager_is_node_security_device(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->IsNodeSecurityDevice(homeId,nodeId);
+}
+
+EXPORT uint manager_get_node_max_baud_rate(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->GetNodeMaxBaudRate(homeId,nodeId);
+}
+
+EXPORT unsigned char  manager_get_node_version(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->GetNodeVersion(homeId,nodeId);
+}
+
+EXPORT unsigned char  manager_get_node_security(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->GetNodeSecurity(homeId,nodeId);
+}
+
+EXPORT bool manager_is_node_zwave_plus(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->IsNodeZWavePlus(homeId,nodeId);
+}
+
+EXPORT unsigned char  manager_get_node_basic(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->GetNodeBasic(homeId,nodeId);
+}
+
+EXPORT unsigned char  manager_get_node_generic(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->GetNodeGeneric(homeId,nodeId);
+}
+
+EXPORT unsigned char  manager_get_node_specific(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->GetNodeSpecific(homeId,nodeId);
+}
+
+EXPORT int manager_get_node_type(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeType(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_manufacturer_name(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeManufacturerName(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_product_name(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeProductName(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_name(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeName(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_location(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeLocation(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_manufacturer_id(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeManufacturerId(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_product_type(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeProductType(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT int manager_get_node_product_id(manager_t* m, uint homeId, uint8 nodeId, char* strOut) {
+    string str = reinterpret_cast<Manager*>(m)->GetNodeProductId(homeId,nodeId);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT void manager_set_node_manufacturer_name(manager_t* m, uint homeId, uint8 nodeId, char* name) {
+    reinterpret_cast<Manager*>(m)->SetNodeManufacturerName(homeId,nodeId,name);
+}
+
+EXPORT void manager_set_node_name(manager_t* m, uint homeId, uint8 nodeId, char* name) {
+    reinterpret_cast<Manager*>(m)->SetNodeName(homeId,nodeId,name);
+}
+
+EXPORT void manager_set_node_location(manager_t* m, uint homeId, uint8 nodeId, char* name) {
+    reinterpret_cast<Manager*>(m)->SetNodeLocation(homeId,nodeId,name);
+}
+    
+
+    
 //-----------------------------------------------------------------------------
 // Values
+    
+EXPORT value_id_t*  value_id_create(uint32 const _homeId,
+                                  uint8 const    _nodeId,
+                                  value_genre_t const _genre,
+                                  uint8 const _commandClassId,
+                                  uint8 const _instance,
+                                  uint8 const _valueIndex,
+                                  value_id_value_type_t const _type) {
+    ValueID* vid =  new ValueID(_homeId,_nodeId, (ValueID::ValueGenre)_genre,_commandClassId,_instance,_valueIndex,(ValueID::ValueType)_type);
+    return reinterpret_cast<value_id_t*>(vid);
+}
+EXPORT void value_id_delete(value_id_t* v) {
+    delete reinterpret_cast<ValueID*>(v);
+}
+EXPORT int manager_get_node_value_label(manager_t* m, value_id_t* valueId, char* strOut) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    string str = reinterpret_cast<Manager*>(m)->GetValueLabel(vid);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
 
+EXPORT void manager_set_node_value_label(manager_t* m, value_id_t* valueId, char* name) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    reinterpret_cast<Manager*>(m)->SetValueLabel(vid,name);
+}
+
+EXPORT int manager_get_node_value_units(manager_t* m, value_id_t* valueId, char* strOut) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    string str = reinterpret_cast<Manager*>(m)->GetValueUnits(vid);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT void manager_set_node_value_units(manager_t* m, value_id_t* valueId, char* name) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    reinterpret_cast<Manager*>(m)->SetValueUnits(vid,name);
+}
+
+EXPORT int manager_get_node_value_help(manager_t* m, value_id_t* valueId, char* strOut) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    string str = reinterpret_cast<Manager*>(m)->GetValueHelp(vid);
+    if (strOut)
+        strcpy(strOut, str.c_str());
+    return (int)str.length();
+}
+
+EXPORT void manager_set_node_value_help(manager_t* m, value_id_t* valueId, char* name) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    reinterpret_cast<Manager*>(m)->SetValueHelp(vid,name);
+}
+
+EXPORT uint manager_get_value_min(manager_t* m,value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueMin(vid);
+}
+
+EXPORT uint manager_get_value_max(manager_t* m,value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueMax(vid);
+}
+
+EXPORT bool manager_is_value_read_only(manager_t* m, value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->IsValueReadOnly(vid);
+}
+
+EXPORT bool manager_is_value_write_only(manager_t* m, value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->IsValueWriteOnly(vid);
+}
+
+EXPORT bool manager_is_value_set(manager_t* m, value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->IsValueSet(vid);
+}
+
+EXPORT bool manager_is_value_polled(manager_t* m, value_id_t* valueId) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->IsValuePolled(vid);
+}
+
+EXPORT bool manager_get_value_as_bool(manager_t* m, value_id_t* valueId, bool* outBool) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueAsBool(vid, outBool);
+}
+
+EXPORT bool manager_get_value_as_byte(manager_t* m, value_id_t* valueId, uint8* outByte) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueAsByte(vid,outByte);
+}
+
+EXPORT bool manager_get_value_as_float(manager_t* m, value_id_t* valueId, float* outFloat) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueAsFloat(vid,outFloat);
+}
+
+EXPORT bool manager_get_value_as_int(manager_t* m, value_id_t* valueId, int* outInt) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueAsInt(vid,outInt);
+}
+
+EXPORT bool manager_get_value_as_short(manager_t* m, value_id_t* valueId, int16* outInt) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueAsShort(vid,outInt);
+}
+
+EXPORT bool manager_get_node_value_string(manager_t* m, value_id_t* valueId, string* strOut) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueAsString(vid,strOut);
+}
+
+EXPORT bool manager_get_node_value_list_selection(manager_t* m, value_id_t* valueId, string* strOut) {
+    const ValueID& vid  = reinterpret_cast<ValueID&>(valueId);
+    return reinterpret_cast<Manager*>(m)->GetValueListSelection(vid,strOut);
+}
+
+
+    
 //-----------------------------------------------------------------------------
 // Climate Control Schedules
 
@@ -414,6 +697,14 @@ EXPORT int32_t manager_get_controller_path(manager_t* m, uint32_t homeId, char* 
 //-----------------------------------------------------------------------------
 // Configuration Parameters
 
+    
+EXPORT void manager_request_config_params(manager_t* m, uint homeId, uint8 nodeId, uint8 param) {
+    reinterpret_cast<Manager*>(m)->RequestConfigParam(homeId,nodeId,param);
+}
+    
+EXPORT void manager_request_all_config_params(manager_t* m, uint homeId, uint8 nodeId) {
+    reinterpret_cast<Manager*>(m)->RequestAllConfigParams(homeId,nodeId);
+}
 //-----------------------------------------------------------------------------
 // Groups (wrappers for the Node methods)
 
@@ -431,9 +722,44 @@ EXPORT bool manager_remove_watcher(manager_t* m, on_ontification_delegate_t watc
 //-----------------------------------------------------------------------------
 // Controller commands
 
+EXPORT void manager_reset_controller(manager_t* m, uint homeId) {
+    reinterpret_cast<Manager*>(m)->ResetController(homeId);
+}
+
+EXPORT void manager_soft_reset(manager_t* m, uint homeId) {
+    reinterpret_cast<Manager*>(m)->SoftReset(homeId);
+}
+    
 //-----------------------------------------------------------------------------
 // Network commands
+EXPORT bool manager_add_node(manager_t* m, uint homeId, bool doSecurity) {
+    return reinterpret_cast<Manager*>(m)->AddNode(homeId,doSecurity);
+}
 
+EXPORT bool manager_remove_node(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->RemoveNode(homeId);
+}
+
+EXPORT bool manager_remove_failed_node(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->RemoveFailedNode(homeId,nodeId);
+}
+
+EXPORT bool manager_has_node_failed(manager_t* m, uint homeId, uint8 nodeId) {
+    return reinterpret_cast<Manager*>(m)->HasNodeFailed(homeId,nodeId);
+}
+
+EXPORT bool manager_create_new_primary(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->CreateNewPrimary(homeId);
+}
+
+EXPORT bool manager_revieve_configuration(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->ReceiveConfiguration(homeId);
+}
+
+EXPORT bool manager_transfer_primary_role(manager_t* m, uint homeId) {
+    return reinterpret_cast<Manager*>(m)->TransferPrimaryRole(homeId);
+}
+    
 //-----------------------------------------------------------------------------
 // Scene commands
 

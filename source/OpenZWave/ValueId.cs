@@ -2,11 +2,16 @@
 
 namespace OpenZWave
 {
-	public class ValueId
+	public class ValueId : IDisposable
 	{
 		internal static readonly NativeMap<ValueId> NativeToManagedMap = new NativeMap<ValueId>();
 
-		private IntPtr handle;
+		internal IntPtr handle;
+		bool ownsHandle;
+		public ValueId(uint homeId, byte nodeId, ValueGenre genre, byte commandClass, byte instance, byte index, ZWValueType type) : this(NativeMethods.value_id_create(homeId, nodeId, genre, commandClass, instance, index, type))
+		{
+			ownsHandle = true;
+		}
 
 		internal ValueId(IntPtr ptr)
 		{
@@ -15,6 +20,8 @@ namespace OpenZWave
 
 		public void Dispose()
 		{
+			if (ownsHandle)
+				NativeMethods.value_id_delete(handle);
 			Dispose(true);
 		}
 
