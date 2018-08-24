@@ -13,9 +13,9 @@
 
 /* Begin PBXFileReference section */
 		34247F1A210AD97800FCEFC4 /* libopenzwave_c.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libopenzwave_c.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		34D79B6F210AD99900CAC94F /* openzwave_c.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = openzwave_c.cpp; sourceTree = "<group>"; };
-		34D79B73210ADC4600CAC94F /* libopenzwave-1.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libopenzwave-1.4.dylib"; path = "../../externals/open-zwave/libopenzwave-1.4.dylib"; sourceTree = "<group>"; };
-		34D79B75210ADC5300CAC94F /* libopenzwave.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenzwave.a; path = "../../externals/open-zwave/libopenzwave.a"; sourceTree = "<group>"; };
+		34D79B6F210AD99900CAC94F /* openzwave_c.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = openzwave_c.cpp; path = ../../src/openzwave_c.cpp; sourceTree = "<group>"; };
+		34D79B73210ADC4600CAC94F /* libopenzwave-1.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libopenzwave-1.4.dylib"; path = "../../../externals/open-zwave/libopenzwave-1.4.dylib"; sourceTree = "<group>"; };
+		34D79B75210ADC5300CAC94F /* libopenzwave.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenzwave.a; path = "../../../externals/open-zwave/libopenzwave.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,8 +189,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "../../externals/open-zwave/cpp/src";
-				LIBRARY_SEARCH_PATHS = "../../externals/open-zwave";
+				HEADER_SEARCH_PATHS = "../../../externals/open-zwave/cpp/src";
+				LIBRARY_SEARCH_PATHS = "../../../externals/open-zwave";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -243,8 +243,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "../../externals/open-zwave/cpp/src";
-				LIBRARY_SEARCH_PATHS = "../../externals/open-zwave";
+				HEADER_SEARCH_PATHS = "../../../externals/open-zwave/cpp/src";
+				LIBRARY_SEARCH_PATHS = "../../../externals/open-zwave";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
