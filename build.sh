@@ -12,7 +12,7 @@ xcodebuild clean build \
     -target openzwave_c \
     -arch i386 -arch x86_64 \
     -configuration Release
-cp native/build/build/macos/Release/libopenzwave_c.dylib \
+cp native/build/macos/build/Release/libopenzwave_c.dylib \
     externals/open-zwave/libopenzwave_c.dylib
 install_name_tool -id "libopenzwave_c.dylib" \
     externals/open-zwave/libopenzwave_c.dylib
